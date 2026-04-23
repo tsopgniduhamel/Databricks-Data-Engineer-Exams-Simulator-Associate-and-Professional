@@ -1,8 +1,8 @@
 # Databricks-Data-Engineer-Exams-Simulator-Associate-and-Professional
 
 ### Databricks-Data-Engineer-Professional-Exams-Simulator
-![image](./preview.png)
+![image](./images/preview.png)
 
 
 ### Databricks-Data-Engineer-Professional-Exams-Simulator-Associate
-![image](./preview2.png)
+![image](./images/preview2.png)

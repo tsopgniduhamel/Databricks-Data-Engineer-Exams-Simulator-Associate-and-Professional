@@ -1,0 +1,1256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Databricks Data Engineer Associate — 3 Full Practice Exams</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Sora:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0e1a;
+    --surface: #111827;
+    --surface2: #1a2235;
+    --surface3: #24314a;
+    --border: #1f2d44;
+    --accent: #ff4d00;
+    --accent2: #ff8c42;
+    --blue: #3b82f6;
+    --green: #22c55e;
+    --red: #ef4444;
+    --yellow: #f59e0b;
+    --text: #e2e8f0;
+    --text-dim: #94a3b8;
+    --text-muted: #64748b;
+    --mono: 'JetBrains Mono', monospace;
+    --sans: 'Sora', sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  body::before {
+    content:'';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(59,130,246,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(59,130,246,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events:none;
+    z-index:0;
+  }
+  .app { position: relative; z-index: 1; }
+
+  #home-screen {
+    min-height: 100vh;
+    padding: 48px 20px 72px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+  }
+  .logo-badge {
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: white;
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    padding: 6px 14px;
+    border-radius: 3px;
+    margin-bottom: 24px;
+    text-transform: uppercase;
+  }
+  h1.hero {
+    font-size: clamp(2rem, 5vw, 3.4rem);
+    line-height: 1.08;
+    text-align: center;
+    font-weight: 800;
+    letter-spacing: -1px;
+    margin-bottom: 12px;
+  }
+  h1.hero span {
+    background: linear-gradient(90deg, var(--accent), var(--accent2), var(--yellow));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero-sub {
+    max-width: 780px;
+    text-align:center;
+    color: var(--text-dim);
+    font-size: 15px;
+    line-height: 1.7;
+    margin-bottom: 20px;
+  }
+  .hero-meta {
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    justify-content:center;
+    margin-bottom: 42px;
+  }
+  .meta-pill {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 6px 12px;
+    font-size: 11px;
+    font-family: var(--mono);
+    color: var(--text-dim);
+  }
+  .exam-cards {
+    width:100%;
+    max-width:1100px;
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap:20px;
+  }
+  .exam-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 28px 24px;
+    position: relative;
+    overflow:hidden;
+    transition: .22s ease;
+    cursor:pointer;
+  }
+  .exam-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--accent);
+    box-shadow: 0 18px 50px rgba(255,77,0,0.14);
+  }
+  .exam-card::before {
+    content:'';
+    position:absolute;
+    top:0;left:0;right:0;
+    height:3px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    transform: scaleX(0);
+    transform-origin:left;
+    transition: transform .22s ease;
+  }
+  .exam-card:hover::before { transform: scaleX(1); }
+  .card-num {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent);
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+  }
+  .card-title {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .card-desc {
+    color: var(--text-dim);
+    font-size: 13px;
+    line-height: 1.65;
+    margin-bottom: 18px;
+  }
+  .card-grid {
+    display:grid;
+    grid-template-columns: repeat(2, minmax(0,1fr));
+    gap:10px;
+    margin-bottom:18px;
+  }
+  .card-stat {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px;
+  }
+  .card-stat-v {
+    font-family: var(--mono);
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .card-stat-l {
+    color: var(--text-muted);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-family: var(--mono);
+  }
+  .domain-list {
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-bottom: 16px;
+  }
+  .domain-tag {
+    background: rgba(59,130,246,0.08);
+    border: 1px solid rgba(59,130,246,0.18);
+    color: #b9d2ff;
+    border-radius: 999px;
+    padding: 4px 10px;
+    font-size: 10px;
+    font-family: var(--mono);
+  }
+  .card-score {
+    border-top: 1px solid var(--border);
+    padding-top: 14px;
+    font-size: 12px;
+    color: var(--text-muted);
+    font-family: var(--mono);
+  }
+  .card-score strong { color: var(--green); }
+
+  #exam-screen, #results-screen { display:none; min-height:100vh; }
+  .exam-header {
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    height: 68px;
+    padding: 0 18px;
+    background: rgba(10,14,26,0.94);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+  }
+  .exam-header-left {
+    display:flex;
+    align-items:center;
+    gap:14px;
+    min-width: 0;
+  }
+  .back-btn {
+    background: var(--surface);
+    color: var(--text-dim);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 14px;
+    cursor:pointer;
+    font-family: var(--mono);
+    font-size: 12px;
+  }
+  .back-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .exam-title-bar {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text-dim);
+    min-width: 0;
+  }
+  .exam-title-bar strong {
+    color: var(--text);
+    display:block;
+    white-space: nowrap;
+    overflow:hidden;
+    text-overflow: ellipsis;
+  }
+  .progress-container {
+    display:flex;
+    align-items:center;
+    gap:10px;
+    flex:1;
+    max-width: 320px;
+  }
+  .progress-bar {
+    flex:1;
+    height: 5px;
+    background: var(--surface2);
+    border-radius: 999px;
+    overflow:hidden;
+  }
+  .progress-fill {
+    height:100%;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    width:0%;
+    transition: width .25s ease;
+  }
+  .progress-text {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-dim);
+    white-space: nowrap;
+  }
+  .timer {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 14px;
+    min-width: 96px;
+    text-align:center;
+    font-family: var(--mono);
+    font-weight: 700;
+  }
+  .timer.warning { color: var(--yellow); border-color: rgba(245,158,11,.4); }
+  .timer.danger { color: var(--red); border-color: rgba(239,68,68,.45); }
+  .btn-submit-exam {
+    background: transparent;
+    border: 1px solid rgba(34,197,94,.5);
+    color: var(--green);
+    border-radius: 8px;
+    padding: 9px 16px;
+    cursor:pointer;
+    font-size: 13px;
+    font-weight: 700;
+    font-family: var(--sans);
+  }
+  .btn-submit-exam:hover { background: rgba(34,197,94,.08); }
+
+  .exam-body {
+    display:grid;
+    grid-template-columns: 260px 1fr;
+    min-height: calc(100vh - 68px);
+  }
+  .q-nav {
+    position: sticky;
+    top: 68px;
+    height: calc(100vh - 68px);
+    overflow-y:auto;
+    padding: 18px 16px;
+    border-right: 1px solid var(--border);
+  }
+  .q-nav-title {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text-muted);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .q-grid {
+    display:grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 6px;
+    margin-bottom: 18px;
+  }
+  .q-dot {
+    aspect-ratio:1;
+    border-radius:6px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border:1px solid var(--border);
+    background: var(--surface);
+    color: var(--text-muted);
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight:700;
+    cursor:pointer;
+    transition:.15s ease;
+  }
+  .q-dot:hover { border-color: var(--blue); color: var(--blue); }
+  .q-dot.answered { background: rgba(59,130,246,.10); border-color: rgba(59,130,246,.45); color: #bfd7ff; }
+  .q-dot.current { background: var(--accent); border-color: var(--accent); color:#fff; }
+  .q-dot.flagged { box-shadow: inset 0 0 0 1px var(--yellow); color: var(--yellow); }
+  .q-dot.correct { background: rgba(34,197,94,.12); border-color: var(--green); color: var(--green); }
+  .q-dot.wrong { background: rgba(239,68,68,.12); border-color: var(--red); color: var(--red); }
+  .legend {
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+  .legend-row {
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .legend-dot {
+    width: 11px; height:11px; border-radius: 3px; border:1px solid var(--border);
+  }
+
+  .q-area {
+    padding: 36px 42px 60px;
+    max-width: 980px;
+  }
+  .review-banner {
+    display:none;
+    background: rgba(59,130,246,.10);
+    border: 1px solid rgba(59,130,246,.28);
+    color: #bfd7ff;
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-family: var(--mono);
+    font-size: 12px;
+    margin-bottom: 18px;
+  }
+  .q-section-tag {
+    display:inline-block;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight:700;
+    margin-bottom: 10px;
+  }
+  .q-number {
+    font-family: var(--mono);
+    color: var(--text-muted);
+    font-size: 12px;
+    margin-bottom: 14px;
+  }
+  .q-text {
+    font-size: 16px;
+    line-height: 1.74;
+    margin-bottom: 16px;
+  }
+  .q-code {
+    white-space: pre-wrap;
+    background: #060a14;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px;
+    margin-bottom: 22px;
+    font-family: var(--mono);
+    font-size: 12.5px;
+    line-height: 1.7;
+    color: #bfe8ff;
+  }
+  .options {
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    margin-bottom: 24px;
+  }
+  .option {
+    background: var(--surface);
+    border:1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    display:flex;
+    gap: 14px;
+    align-items:flex-start;
+    cursor:pointer;
+    transition:.16s ease;
+  }
+  .option:hover { border-color: var(--blue); background: var(--surface2); }
+  .option-letter {
+    width: 20px;
+    flex-shrink:0;
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-muted);
+    padding-top: 2px;
+  }
+  .option-text {
+    flex:1;
+    font-size: 14px;
+    line-height: 1.65;
+  }
+  .option.selected {
+    border-color: rgba(59,130,246,.55);
+    background: rgba(59,130,246,.08);
+  }
+  .option.selected .option-letter { color: var(--blue); }
+  .option.correct {
+    border-color: rgba(34,197,94,.6);
+    background: rgba(34,197,94,.10);
+  }
+  .option.correct .option-letter { color: var(--green); }
+  .option.wrong {
+    border-color: rgba(239,68,68,.6);
+    background: rgba(239,68,68,.10);
+  }
+  .option.wrong .option-letter { color: var(--red); }
+  .option.reveal-correct {
+    border-color: rgba(34,197,94,.45);
+    background: rgba(34,197,94,.06);
+  }
+  .option.reveal-correct .option-letter { color: var(--green); }
+
+  .explanation {
+    display:none;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 22px;
+    margin-bottom: 24px;
+  }
+  .explanation.show { display:block; }
+  .exp-head {
+    display:flex;
+    gap:10px;
+    align-items:center;
+    margin-bottom: 10px;
+  }
+  .exp-badge {
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 999px;
+    letter-spacing: 1px;
+  }
+  .exp-badge.correct { background: rgba(34,197,94,.14); color: var(--green); }
+  .exp-badge.wrong { background: rgba(239,68,68,.14); color: var(--red); }
+  .exp-title {
+    font-size: 13px;
+    color: var(--text-dim);
+  }
+  .exp-body {
+    color: var(--text-dim);
+    font-size: 14px;
+    line-height: 1.8;
+  }
+  .exp-body strong { color: var(--text); }
+
+  .q-actions {
+    display:flex;
+    align-items:center;
+    gap:10px;
+    flex-wrap:wrap;
+  }
+  .btn {
+    border:none;
+    border-radius: 9px;
+    padding: 10px 18px;
+    cursor:pointer;
+    font-size: 14px;
+    font-weight:700;
+    font-family: var(--sans);
+  }
+  .btn-primary {
+    color:#fff;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+  }
+  .btn-secondary {
+    color: var(--text-dim);
+    background: var(--surface);
+    border: 1px solid var(--border);
+  }
+  .btn-flag {
+    color: var(--text-muted);
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    padding: 10px 14px;
+    cursor:pointer;
+    font-size: 16px;
+  }
+  .btn-flag.active {
+    color: var(--yellow);
+    border-color: rgba(245,158,11,.45);
+    background: rgba(245,158,11,.08);
+  }
+  .btn:hover { opacity:.95; }
+
+  #results-screen {
+    padding: 56px 20px 70px;
+  }
+  .results-inner {
+    max-width: 920px;
+    margin: 0 auto;
+  }
+  .results-header {
+    text-align:center;
+    margin-bottom: 34px;
+  }
+  .score-circle {
+    width: 160px;
+    height:160px;
+    border-radius: 50%;
+    margin: 0 auto 22px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    border: 4px solid var(--green);
+  }
+  .score-circle.fail { border-color: var(--red); }
+  .score-pct {
+    font-family: var(--mono);
+    font-size: 40px;
+    font-weight: 800;
+    line-height: 1;
+  }
+  .score-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-muted);
+    letter-spacing:1px;
+    margin-top: 6px;
+  }
+  .result-verdict {
+    font-size: 28px;
+    font-weight:800;
+    margin-bottom: 8px;
+  }
+  .result-sub {
+    color: var(--text-dim);
+    font-size: 14px;
+    line-height:1.7;
+  }
+  .results-stats {
+    display:grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin-bottom: 28px;
+  }
+  .stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px;
+    text-align:center;
+  }
+  .stat-num {
+    font-family: var(--mono);
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .stat-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .section-breakdown {
+    background: var(--surface);
+    border:1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px;
+    margin-bottom: 24px;
+  }
+  .section-breakdown h3 {
+    font-size: 14px;
+    font-family: var(--mono);
+    letter-spacing: 1px;
+    color: var(--text-dim);
+    margin-bottom: 18px;
+    text-transform: uppercase;
+  }
+  .section-row {
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom: 12px;
+  }
+  .section-name {
+    width: 270px;
+    flex-shrink:0;
+    font-size: 12px;
+    color: var(--text-dim);
+  }
+  .section-bar-wrap {
+    flex:1;
+    height: 8px;
+    background: var(--surface2);
+    border-radius: 999px;
+    overflow:hidden;
+  }
+  .section-bar-fill {
+    height: 100%;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+  }
+  .section-pct {
+    width: 44px;
+    text-align:right;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text-dim);
+  }
+  .results-actions {
+    display:flex;
+    gap:12px;
+    justify-content:center;
+    flex-wrap:wrap;
+  }
+  .note-box {
+    background: rgba(59,130,246,.08);
+    border: 1px solid rgba(59,130,246,.18);
+    color: var(--text-dim);
+    border-radius: 12px;
+    padding: 16px 18px;
+    margin-bottom: 24px;
+    line-height: 1.75;
+    font-size: 14px;
+  }
+  .blueprint-list {
+    display:grid;
+    grid-template-columns: repeat(5, minmax(0,1fr));
+    gap:10px;
+    margin-top: 14px;
+  }
+  .bp-item {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px;
+  }
+  .bp-v {
+    font-family: var(--mono);
+    font-size: 18px;
+    font-weight:700;
+    margin-bottom:4px;
+  }
+  .bp-l {
+    font-size: 11px;
+    color: var(--text-muted);
+    line-height:1.5;
+  }
+  @media (max-width: 900px) {
+    .exam-body { grid-template-columns: 1fr; }
+    .q-nav { display:none; }
+    .q-area { padding: 26px 18px 50px; }
+    .results-stats { grid-template-columns: repeat(2, 1fr); }
+    .blueprint-list { grid-template-columns: repeat(2, minmax(0,1fr)); }
+    .progress-container { max-width: 140px; }
+    .exam-header {
+      padding: 10px 12px;
+      height: auto;
+      align-items:flex-start;
+      flex-wrap: wrap;
+    }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <div id="home-screen">
+    <div class="logo-badge">Databricks Associate</div>
+    <h1 class="hero">Data Engineer <span>Associate</span><br>3 Full Practice Exams</h1>
+    <p class="hero-sub">Three full-length, exam-style mock tests built around the current official Databricks Data Engineer Associate structure: 45 scored questions, 90 minutes, with explanations hidden until you submit and review.</p>
+    <div class="hero-meta">
+      <div class="meta-pill">45 questions each</div>
+      <div class="meta-pill">90-minute timer</div>
+      <div class="meta-pill">Review mode after submit</div>
+      <div class="meta-pill">SQL + PySpark focused</div>
+      <div class="meta-pill">Unofficial practice</div>
+    </div>
+    <div class="exam-cards" id="exam-cards"></div>
+  </div>
+
+  <div id="exam-screen">
+    <div class="exam-header">
+      <div class="exam-header-left">
+        <button class="back-btn" onclick="confirmExit()">← Home</button>
+        <div class="exam-title-bar"><strong id="exam-title-bar"></strong><span id="exam-subtitle"></span></div>
+      </div>
+      <div class="progress-container">
+        <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+        <div class="progress-text" id="progress-text">0 / 45</div>
+      </div>
+      <div class="timer" id="timer">1:30:00</div>
+      <button class="btn-submit-exam" onclick="submitExam()">Submit Exam</button>
+    </div>
+
+    <div class="exam-body">
+      <aside class="q-nav">
+        <div class="q-nav-title">Questions</div>
+        <div class="q-grid" id="q-grid"></div>
+        <div class="legend">
+          <div class="legend-row"><div class="legend-dot" style="background:rgba(59,130,246,.10); border-color:rgba(59,130,246,.45)"></div>Answered</div>
+          <div class="legend-row"><div class="legend-dot" style="background:var(--accent); border-color:var(--accent)"></div>Current</div>
+          <div class="legend-row"><div class="legend-dot" style="border-color:var(--yellow)"></div>Flagged</div>
+        </div>
+      </aside>
+
+      <main class="q-area">
+        <div class="review-banner" id="review-banner">Review mode: explanations and correct answers are now visible.</div>
+        <div id="q-area"></div>
+      </main>
+    </div>
+  </div>
+
+  <div id="results-screen">
+    <div class="results-inner" id="results-inner"></div>
+  </div>
+</div>
+
+<script>
+const QUESTION_BANK = [{"domain": "Databricks Intelligence Platform", "text": "A data engineer wants to organize notebooks, dashboards, and SQL queries so the team can collaborate on them in one place with workspace permissions. Which Databricks feature is designed for that?", "options": ["A workspace folder", "DBFS root", "The driver log directory", "A cluster policy"], "correct": 0, "explanation": "A workspace folder is the collaboration surface for notebooks, dashboards, and queries. DBFS root is storage, not the main asset-organization layer. Driver logs and cluster policies solve operational and governance problems, not team content organization.", "code": ""}, {"domain": "Databricks Intelligence Platform", "text": "An analyst needs fast, scalable SQL queries for dashboards without managing clusters manually. Which compute option is the best fit?", "options": ["An all-purpose compute cluster", "A jobs compute cluster attached to a notebook", "A SQL warehouse", "DBFS with Photon enabled"], "correct": 2, "explanation": "A SQL warehouse is built for SQL analytics, dashboards, query concurrency, and BI connectivity. All-purpose clusters are better for interactive development, and jobs clusters are for scheduled workloads. DBFS is storage, not compute.", "code": ""}, {"domain": "Databricks Intelligence Platform", "text": "Which statement best describes a jobs compute cluster in Databricks?", "options": ["It is meant to be shared by analysts for ad hoc notebooks all day.", "It is created for a run, executes the workload, and is typically terminated automatically after the run.", "It can only run SQL and cannot run Python.", "It stores Unity Catalog metadata for the workspace."], "correct": 1, "explanation": "Jobs compute is designed for production workloads. It spins up for a run, executes the scheduled or triggered job, and typically terminates automatically, which helps reduce cost and improve reproducibility compared with long-lived interactive compute.", "code": ""}, {"domain": "Databricks Intelligence Platform", "text": "A team wants a single governance layer for catalogs, schemas, tables, views, functions, and permissions across workspaces. Which Databricks capability provides that?", "options": ["Delta Sharing", "Unity Catalog", "Auto Loader", "Lakeflow Jobs"], "correct": 1, "explanation": "Unity Catalog is Databricks’ centralized governance layer. It manages data objects, permissions, lineage, and other governance features across workspaces. Delta Sharing is for secure sharing, while Auto Loader and Jobs serve ingestion and orchestration use cases.", "code": ""}, {"domain": "Development and Ingestion", "text": "A pipeline continuously ingests new JSON files from cloud storage and should scale efficiently as the number of files grows. Which ingestion method is recommended?", "options": ["COPY INTO on a loop from a notebook", "Auto Loader", "Manual upload through the UI", "A one-time spark.read.json followed by saveAsTable"], "correct": 1, "explanation": "Auto Loader is designed for incremental, scalable file ingestion. It tracks discovered files and is optimized for cloud object storage. COPY INTO is useful, but Auto Loader is the standard choice for continuous file ingestion at scale.", "code": ""}, {"domain": "Development and Ingestion", "text": "Auto Loader is configured with cloudFiles.schemaEvolutionMode = 'addNewColumns'. What happens when a new column appears in incoming files?", "options": ["The stream fails immediately and requires a manual restart.", "The new column is ignored permanently.", "The schema is evolved by adding the new column.", "The existing table is dropped and recreated."], "correct": 2, "explanation": "With addNewColumns, Auto Loader evolves the schema when new fields appear. This makes it suitable for semi-structured sources that gradually change over time.", "code": ""}, {"domain": "Development and Ingestion", "text": "What is the main purpose of the _rescued_data column when ingesting semi-structured data?", "options": ["To store duplicate rows that failed primary-key validation", "To store values that could not be parsed into the expected schema", "To store the physical file path for each record", "To store watermark state for streaming joins"], "correct": 1, "explanation": "The rescued data column captures fields or values that do not fit the expected schema. This helps prevent data loss while still allowing ingestion to continue.", "code": ""}, {"domain": "Development and Ingestion", "text": "A data engineer runs COPY INTO against the same source folder every day. No FORCE option is used. What is the normal behavior?", "options": ["All files are reloaded each time.", "Only files modified in the last hour are loaded.", "Previously loaded files are skipped and only new files are ingested.", "The command fails if the destination table already contains data."], "correct": 2, "explanation": "COPY INTO keeps load history and is idempotent by default. It will skip files already recorded as loaded and ingest only new files, unless FORCE is used.", "code": ""}, {"domain": "Development and Ingestion", "text": "Which option helps Auto Loader reduce the cost of discovering new files by using cloud-native event notifications instead of repeated directory listing?", "options": ["cloudFiles.inferColumnTypes = true", "cloudFiles.useNotifications = true", "mergeSchema = true", "multiLine = true"], "correct": 1, "explanation": "When useNotifications is enabled, Auto Loader uses cloud-native eventing where supported. This reduces repeated directory scans and scales better for large ingestion volumes.", "code": ""}, {"domain": "Development and Ingestion", "text": "A source system delivers CSV files with a header row. Which option is required so Spark reads the first row as column names rather than data?", "options": ["option('delimiter', 'header')", "option('schema', 'true')", "option('header', 'true')", "option('columnsFromFirstRow', 'true')"], "correct": 2, "explanation": "For CSV input, header=true tells Spark to use the first line as column names. Without it, Spark treats the header row as normal data.", "code": ""}, {"domain": "Development and Ingestion", "text": "Which function is most appropriate for reading a JSON string column into a nested Spark struct using a provided schema?", "options": ["get_json_object", "from_json", "to_json", "parse_url"], "correct": 1, "explanation": "from_json parses a JSON string into a structured column using a supplied schema. get_json_object extracts a single field as text, while to_json does the reverse conversion.", "code": ""}, {"domain": "Development and Ingestion", "text": "A table must be loaded from a JDBC source in parallel. Which JDBC read option is commonly used to divide the load across multiple partitions?", "options": ["checkpointLocation", "partitionColumn", "mergeSchema", "rescuedDataColumn"], "correct": 1, "explanation": "partitionColumn is part of Spark’s parallel JDBC read pattern, typically used together with lowerBound, upperBound, and numPartitions. This lets Spark split the extraction work.", "code": ""}, {"domain": "Development and Ingestion", "text": "Which statement about spark.readStream is correct?", "options": ["It is used for batch-only file reads.", "It creates a streaming DataFrame for sources such as files, Kafka, or Delta.", "It can only be used with Auto Loader.", "It writes directly to Delta without a writeStream step."], "correct": 1, "explanation": "spark.readStream creates a streaming DataFrame. It supports multiple streaming sources, including files, Kafka, and Delta. Writing still requires writeStream.", "code": ""}, {"domain": "Development and Ingestion", "text": "A data engineer needs to ingest many Parquet files from cloud storage and automatically infer the schema. Which statement is true?", "options": ["Parquet stores schema metadata, so Spark can infer the schema directly from the files.", "Parquet always requires a user-supplied schema before it can be read.", "Parquet is treated the same as raw text and has no schema information.", "Parquet can only be read through JDBC."], "correct": 0, "explanation": "Parquet is self-describing and contains schema metadata. Spark can infer its schema directly from the files, which is one reason Parquet is commonly used in lakehouse pipelines.", "code": ""}, {"domain": "Development and Ingestion", "text": "Which choice best describes the bronze layer in a medallion architecture?", "options": ["Highly curated business-ready tables for dashboards", "Raw or minimally transformed data as close to the source as possible", "Only aggregated dimensional models", "A temporary area that must be emptied daily"], "correct": 1, "explanation": "The bronze layer is the raw ingestion layer. It is usually append-oriented and preserves source fidelity so downstream transformations can be re-run if logic changes.", "code": ""}, {"domain": "Development and Ingestion", "text": "A batch DataFrame contains a column named payload with JSON strings, and the engineer only needs one nested field called order_id quickly. Which function is the simplest fit?", "options": ["get_json_object", "explode", "window", "monotonically_increasing_id"], "correct": 0, "explanation": "get_json_object is convenient when you only need one or a few values out of a JSON string. If you need a strongly typed nested structure, from_json is usually the better choice.", "code": ""}, {"domain": "Development and Ingestion", "text": "What is the primary benefit of storing ingested data in Delta format rather than plain Parquet for most Databricks pipelines?", "options": ["Delta can only be read in SQL and not in PySpark.", "Delta adds transaction-log features such as ACID operations, schema enforcement, and time travel.", "Delta removes the need for compute clusters.", "Delta automatically normalizes the data into star schemas."], "correct": 1, "explanation": "Delta Lake extends Parquet with a transaction log. That gives you ACID reliability, schema enforcement, scalable metadata handling, and features such as MERGE, DELETE, UPDATE, and time travel.", "code": ""}, {"domain": "Development and Ingestion", "text": "A data engineer ingests JSON where some files contain multiline records. Which option is commonly required when reading those files?", "options": ["option('multiLine', 'true')", "option('jsonLines', 'false')", "option('nested', 'true')", "option('allowStructs', 'true')"], "correct": 0, "explanation": "For multiline JSON documents, multiLine=true is commonly required so Spark treats the full document correctly instead of expecting one JSON object per line.", "code": ""}, {"domain": "Data Processing & Transformations", "text": "Which function is used to turn each element of an array column into its own output row?", "options": ["explode", "split", "collect_list", "flatten"], "correct": 0, "explanation": "explode expands an array or map into multiple rows. It is a common pattern when normalizing nested data into a relational shape.", "code": ""}, {"domain": "Data Processing & Transformations", "text": "A data engineer needs exactly one row per customer, keeping the most recent record by update_ts. Which pattern is most appropriate?", "options": ["Use row_number over a window partitioned by customer and ordered by update_ts descending, then keep row_number = 1.", "Use repartition(1) and then drop duplicates.", "Use orderBy(update_ts) and trust Spark to keep the last row automatically.", "Use explode on update_ts and then filter nulls."], "correct": 0, "explanation": "row_number with a partitioned window is the standard deterministic deduplication pattern when you need to keep the latest or earliest row per business key.", "code": ""}, {"domain": "Data Processing & Transformations", "text": "What is the main difference between distinct() and dropDuplicates(['id'])?", "options": ["There is no difference in any scenario.", "distinct removes duplicates based on all columns, while dropDuplicates can target a subset of columns.", "dropDuplicates only works in SQL.", "distinct can only be used on Delta tables."], "correct": 1, "explanation": "distinct compares full rows. dropDuplicates lets you deduplicate using selected columns, which is useful when only business keys matter.", "code": ""}, {"domain": "Data Processing & Transformations", "text": "Which join type returns only rows whose join keys exist in both input DataFrames?", "options": ["left join", "full outer join", "inner join", "left anti join"], "correct": 2, "explanation": "An inner join keeps only matching keys found on both sides. Left joins preserve all left rows, full outer joins preserve both sides, and left anti returns non-matching rows from the left side.", "code": ""}, {"domain": "Data Processing & Transformations", "text": "A small lookup table is joined to a very large fact table. Which join strategy is typically best when the lookup table can fit in memory on each executor?", "options": ["Broadcast join", "Cartesian join", "Full outer join", "Union by name"], "correct": 0, "explanation": "Broadcast joins avoid shuffling the large table by sending the small lookup table to each executor. This is often much faster for large-fact-plus-small-dimension patterns.", "code": ""}, {"domain": "Data Processing & Transformations", "text": "Which transformation is most appropriate for adding a new column named total that equals quantity * unit_price?", "options": ["df.withColumn('total', F.col('quantity') * F.col('unit_price'))", "df.drop('total')", "df.distinct('total')", "df.describe('total')"], "correct": 0, "explanation": "withColumn is the standard DataFrame transformation for adding or replacing a column derived from other columns.", "code": ""}, {"domain": "Data Processing & Transformations", "text": "A DataFrame has columns first_name and last_name. Which expression correctly creates a single full_name column with a space between them?", "options": ["concat_ws(' ', col('first_name'), col('last_name'))", "explode(first_name, last_name)", "array(first_name, last_name).cast('string')", "union(first_name, last_name)"], "correct": 0, "explanation": "concat_ws is designed for safe string concatenation with a separator. It is commonly used for names, paths, and compound labels.", "code": ""}, {"domain": "Data Processing & Transformations", "text": "Which SQL clause is used with window functions to define the grouping and ordering context for calculations like row_number or lag?", "options": ["OVER (...)", "GROUP WINDOW (...)", "PARTITION WINDOW (...)", "FRAME BY (...)"], "correct": 0, "explanation": "Window functions in SQL are defined with OVER(...), which can include PARTITION BY and ORDER BY clauses to define the window.", "code": ""}, {"domain": "Data Processing & Transformations", "text": "A PySpark job uses a Python UDF for a simple uppercasing task. Why is replacing it with the built-in upper() function often better?", "options": ["Built-in functions are usually more optimized and avoid unnecessary Python serialization overhead.", "Python UDFs can only be used on streaming DataFrames.", "Built-in functions always return Delta tables directly.", "Python UDFs automatically disable Photon only in SQL warehouses, never in Spark clusters."], "correct": 0, "explanation": "Built-in functions are usually faster because Spark understands them natively and can optimize them better. Python UDFs add serialization overhead between the JVM and Python runtime.", "code": ""}, {"domain": "Data Processing & Transformations", "text": "Which function converts a timestamp column to a date column in Spark SQL or PySpark?", "options": ["to_date", "datediff", "date_add", "unix_timestamp"], "correct": 0, "explanation": "to_date extracts the date portion from a timestamp or parses a string as a date. datediff computes differences, and date_add shifts dates.", "code": ""}, {"domain": "Data Processing & Transformations", "text": "A DataFrame contains columns in different order than the target DataFrame but shares the same names. Which method is designed to combine them safely by column name?", "options": ["unionByName", "crossJoin", "intersectAll", "exceptAll"], "correct": 0, "explanation": "unionByName aligns columns by name rather than by physical position. This helps avoid data landing in the wrong columns when schemas are compatible but ordered differently.", "code": ""}, {"domain": "Data Processing & Transformations", "text": "A pipeline needs to replace null values in a numeric discount column with 0. Which transformation is appropriate?", "options": ["fillna({'discount': 0})", "dropna({'discount': 0})", "replaceNulls('discount', 0)", "distinct('discount')"], "correct": 0, "explanation": "fillna is the standard way to replace nulls with a default value. dropna removes rows instead of imputing them.", "code": ""}, {"domain": "Data Processing & Transformations", "text": "Which statement about repartition and coalesce is correct?", "options": ["coalesce is typically used to reduce the number of partitions with less shuffle than repartition.", "repartition can only reduce partitions and never increase them.", "coalesce always creates evenly balanced partitions.", "Both methods are only valid on streaming DataFrames."], "correct": 0, "explanation": "coalesce is commonly used to reduce partitions with less shuffle, while repartition can increase or decrease partitions and usually involves a full shuffle for better distribution.", "code": ""}, {"domain": "Data Processing & Transformations", "text": "A data engineer wants to perform an upsert from staging into a Delta target table using SQL. Which statement is specifically built for this pattern?", "options": ["OPTIMIZE", "MERGE INTO", "VACUUM", "DESCRIBE HISTORY"], "correct": 1, "explanation": "MERGE INTO is the Delta Lake statement for matching source rows to target rows and applying inserts, updates, or deletes in one transactional operation.", "code": ""}, {"domain": "Productionizing Data Pipelines", "text": "A Databricks Workflow contains Task B and Task C, both depending on Task A. What happens if Task A fails?", "options": ["Task B and Task C still run in parallel.", "Only Task B runs because it is alphabetically first.", "Downstream tasks that depend on Task A do not run.", "The workflow automatically converts all failed tasks into retries forever."], "correct": 2, "explanation": "When an upstream dependency fails, downstream dependent tasks do not run because their dependency condition was not satisfied.", "code": ""}, {"domain": "Productionizing Data Pipelines", "text": "Why is a jobs compute cluster often preferred over an all-purpose cluster for a scheduled production ETL job?", "options": ["It is optimized for BI dashboards only.", "It is ephemeral, better isolated for reproducible runs, and usually more cost-efficient for scheduled jobs.", "It permanently stores job output in driver memory.", "It removes the need for checkpoints in streaming."], "correct": 1, "explanation": "Jobs compute is designed for production workflows. It starts for the run, executes the workload in an isolated environment, and then can terminate automatically. That improves cost control and reproducibility.", "code": ""}, {"domain": "Productionizing Data Pipelines", "text": "A streaming query writes to Delta and must recover correctly after failure without duplicating committed micro-batches. What is essential?", "options": ["A durable checkpoint location", "A workspace folder comment", "A SQL warehouse", "A cluster policy with personal access tokens disabled"], "correct": 0, "explanation": "The checkpoint tracks offsets, progress, and state needed for recovery. Without a durable checkpoint, the stream may not resume correctly and could reprocess data.", "code": ""}, {"domain": "Productionizing Data Pipelines", "text": "A multi-task Databricks job had one failed task and several downstream tasks that never ran. What does Repair Run do?", "options": ["It always reruns the entire job from the beginning.", "It reruns only the failed task and affected downstream tasks, reusing successful upstream results when possible.", "It converts the job into a streaming pipeline.", "It deletes the original run history."], "correct": 1, "explanation": "Repair Run is designed to avoid redoing work unnecessarily. Successful upstream tasks can be reused while failed and dependent tasks are rerun.", "code": ""}, {"domain": "Productionizing Data Pipelines", "text": "Which scheduling pattern is best when a team wants a Databricks job to run automatically every day at a defined time?", "options": ["Use a recurring job schedule in Databricks Workflows.", "Pin a notebook tab in the workspace.", "Save the query in a folder.", "Attach the notebook to a SQL warehouse and wait."], "correct": 0, "explanation": "Databricks Workflows supports scheduled jobs directly. That is the right production mechanism for recurring execution.", "code": ""}, {"domain": "Productionizing Data Pipelines", "text": "A production team wants to keep infrastructure and job definitions in source control and deploy them consistently across dev and prod. Which Databricks capability is built for that workflow?", "options": ["Dashboard subscriptions", "Databricks Asset Bundles", "Notebook revision history only", "Driver logs export"], "correct": 1, "explanation": "Databricks Asset Bundles provide a code-defined deployment model for Databricks resources, helping teams manage environments consistently through source control and CI/CD.", "code": ""}, {"domain": "Productionizing Data Pipelines", "text": "A task should run only if the upstream task completes successfully. Which dependency outcome should be used in a workflow?", "options": ["All done", "Succeeded", "Skipped", "Timed out"], "correct": 1, "explanation": "Succeeded is the normal dependency condition for the next task to run only after the upstream task finished successfully.", "code": ""}, {"domain": "Productionizing Data Pipelines", "text": "A notebook task should fail fast after one bad run rather than retry several times. Which job setting is most directly relevant?", "options": ["Max retries", "Cluster name", "Warehouse size", "Schema evolution mode"], "correct": 0, "explanation": "Max retries controls how many times Databricks retries a task after failure. Setting it to 0 means fail immediately without retries.", "code": ""}, {"domain": "Data Governance & Quality", "text": "Which statement correctly distinguishes managed and external tables in Unity Catalog?", "options": ["Managed tables store data under Databricks-managed storage locations, while external tables reference data stored outside that managed location.", "Managed tables can only be queried in SQL, while external tables can only be queried in PySpark.", "External tables do not support permissions.", "Managed tables cannot use Delta format."], "correct": 0, "explanation": "Managed tables keep data in Databricks-managed storage under the metastore’s governance model. External tables point to externally managed storage locations but can still be governed through Unity Catalog.", "code": ""}, {"domain": "Data Governance & Quality", "text": "A user has SELECT on a table but cannot query it because they lack permission on higher levels of the namespace. Which additional privileges are commonly required in Unity Catalog?", "options": ["USE CATALOG and USE SCHEMA", "OPTIMIZE and VACUUM", "MODIFY and OWNERSHIP", "READ FILES and WRITE FILES only"], "correct": 0, "explanation": "Unity Catalog follows a hierarchy. To query a table, users commonly need USE CATALOG on the catalog, USE SCHEMA on the schema, and SELECT on the table.", "code": ""}, {"domain": "Data Governance & Quality", "text": "What is the main purpose of a table constraint or expectation used for data quality in a pipeline?", "options": ["To increase cluster memory automatically when bad data appears", "To define and enforce rules about acceptable data values or structure", "To convert bronze data directly into a dashboard", "To prevent notebook editing by analysts"], "correct": 1, "explanation": "Data quality rules express what acceptable data looks like. Depending on how they are configured, they can fail the pipeline, drop bad records, or simply record metrics.", "code": ""}, {"domain": "Data Governance & Quality", "text": "Which Unity Catalog capability helps users understand how a table was produced and what downstream assets depend on it?", "options": ["Lineage", "Photon", "Auto Loader", "Driver logs"], "correct": 0, "explanation": "Lineage shows upstream and downstream relationships between data assets. It helps with impact analysis, troubleshooting, auditing, and governance.", "code": ""}, {"domain": "Data Governance & Quality", "text": "A team wants to share a governed dataset securely with an external organization without copying the data into a separate platform-managed export each day. Which Databricks capability addresses this use case?", "options": ["Delta Sharing", "dbutils.fs.cp", "Spark UI", "Checkpointing"], "correct": 0, "explanation": "Delta Sharing is Databricks’ secure sharing capability for governed data access across organizational boundaries. It is built for data sharing use cases, unlike generic file-copy approaches.", "code": ""}];
+
+const DOMAIN_ORDER = [
+  "Databricks Intelligence Platform",
+  "Development and Ingestion",
+  "Data Processing & Transformations",
+  "Productionizing Data Pipelines",
+  "Data Governance & Quality"
+];
+
+const BLUEPRINT = {
+  "Databricks Intelligence Platform": 4,
+  "Development and Ingestion": 14,
+  "Data Processing & Transformations": 14,
+  "Productionizing Data Pipelines": 8,
+  "Data Governance & Quality": 5
+};
+
+const EXAM_DEFS = [
+  {
+    id: "dea_exam_1",
+    title: "Practice Exam 1",
+    focus: "Balanced coverage across all five domains",
+    seed: 11
+  },
+  {
+    id: "dea_exam_2",
+    title: "Practice Exam 2",
+    focus: "Same blueprint, different order and answer layouts",
+    seed: 29
+  },
+  {
+    id: "dea_exam_3",
+    title: "Practice Exam 3",
+    focus: "Final full mock for timed review",
+    seed: 47
+  }
+];
+
+let state = {
+  currentExamDef: null,
+  currentExamQuestions: [],
+  currentQuestionIndex: 0,
+  answers: {},
+  flags: {},
+  submitted: false,
+  reviewMode: false,
+  timerRemaining: 90 * 60,
+  timerInterval: null,
+  examStartedAt: null
+};
+
+function mulberry32(a) {
+  return function() {
+    let t = a += 0x6D2B79F5;
+    t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+function seededShuffle(arr, seed) {
+  const rng = mulberry32(seed);
+  const out = arr.slice();
+  for (let i = out.length - 1; i > 0; i--) {
+    const j = Math.floor(rng() * (i + 1));
+    [out[i], out[j]] = [out[j], out[i]];
+  }
+  return out;
+}
+
+function buildExam(seed) {
+  const byDomain = {};
+  for (const d of DOMAIN_ORDER) byDomain[d] = [];
+  QUESTION_BANK.forEach((q, idx) => {
+    byDomain[q.domain].push({ ...q, bankIndex: idx });
+  });
+
+  let questions = [];
+  let domainSeed = seed * 100;
+
+  for (const domain of DOMAIN_ORDER) {
+    const shuffled = seededShuffle(byDomain[domain], domainSeed++);
+    questions = questions.concat(shuffled.slice(0, BLUEPRINT[domain]));
+  }
+
+  questions = seededShuffle(questions, seed + 999).map((q, idx) => {
+    const optionObjs = q.options.map((opt, i) => {
+      return {
+        text: opt.replace(/^([A-D])\.\s*/, ''),
+        isCorrect: i === q.correct
+      };
+    });
+    const shuffledOptions = seededShuffle(optionObjs, seed * 1000 + idx + 7);
+    return {
+      ...q,
+      qid: `q_${idx + 1}_${seed}`,
+      displayNumber: idx + 1,
+      options: shuffledOptions.map(o => o.text),
+      correct: shuffledOptions.findIndex(o => o.isCorrect)
+    };
+  });
+
+  return questions;
+}
+
+function getStoredStats(examId) {
+  try {
+    return JSON.parse(localStorage.getItem(examId) || "null");
+  } catch (e) {
+    return null;
+  }
+}
+
+function setStoredStats(examId, payload) {
+  localStorage.setItem(examId, JSON.stringify(payload));
+}
+
+function renderHome() {
+  const container = document.getElementById("exam-cards");
+  container.innerHTML = "";
+  EXAM_DEFS.forEach((exam, idx) => {
+    const stats = getStoredStats(exam.id);
+    const card = document.createElement("div");
+    card.className = "exam-card";
+    card.onclick = () => startExam(exam.id);
+
+    const scoreHtml = stats
+      ? `<div class="card-score"><strong>Best score: ${stats.bestPct}%</strong> · Last: ${stats.lastPct}% · Attempts: ${stats.attempts}</div>`
+      : `<div class="card-score">No attempts yet</div>`;
+
+    card.innerHTML = `
+      <div class="card-num">EXAM 0${idx + 1}</div>
+      <div class="card-title">${exam.title}</div>
+      <div class="card-desc">${exam.focus}</div>
+
+      <div class="card-grid">
+        <div class="card-stat"><div class="card-stat-v">45</div><div class="card-stat-l">Questions</div></div>
+        <div class="card-stat"><div class="card-stat-v">90m</div><div class="card-stat-l">Timer</div></div>
+        <div class="card-stat"><div class="card-stat-v">5</div><div class="card-stat-l">Domains</div></div>
+        <div class="card-stat"><div class="card-stat-v">MCQ</div><div class="card-stat-l">Format</div></div>
+      </div>
+
+      <div class="domain-list">
+        <div class="domain-tag">Platform</div>
+        <div class="domain-tag">Ingestion</div>
+        <div class="domain-tag">Transforms</div>
+        <div class="domain-tag">Jobs</div>
+        <div class="domain-tag">Governance</div>
+      </div>
+
+      ${scoreHtml}
+    `;
+    container.appendChild(card);
+  });
+}
+
+function startExam(examId) {
+  const exam = EXAM_DEFS.find(e => e.id === examId);
+  state.currentExamDef = exam;
+  state.currentExamQuestions = buildExam(exam.seed);
+  state.currentQuestionIndex = 0;
+  state.answers = {};
+  state.flags = {};
+  state.submitted = false;
+  state.reviewMode = false;
+  state.timerRemaining = 90 * 60;
+  state.examStartedAt = Date.now();
+
+  document.getElementById("home-screen").style.display = "none";
+  document.getElementById("results-screen").style.display = "none";
+  document.getElementById("exam-screen").style.display = "block";
+  document.getElementById("review-banner").style.display = "none";
+  document.getElementById("exam-title-bar").textContent = exam.title;
+  document.getElementById("exam-subtitle").textContent = "45 questions · 90 minutes · explanations after submission";
+
+  renderQuestionGrid();
+  renderQuestion();
+  startTimer();
+}
+
+function startTimer() {
+  clearInterval(state.timerInterval);
+  updateTimer();
+  state.timerInterval = setInterval(() => {
+    if (state.submitted) {
+      clearInterval(state.timerInterval);
+      return;
+    }
+    state.timerRemaining--;
+    updateTimer();
+    if (state.timerRemaining <= 0) {
+      clearInterval(state.timerInterval);
+      submitExam(true);
+    }
+  }, 1000);
+}
+
+function updateTimer() {
+  const el = document.getElementById("timer");
+  const total = Math.max(0, state.timerRemaining);
+  const h = Math.floor(total / 3600);
+  const m = Math.floor((total % 3600) / 60);
+  const s = total % 60;
+  el.textContent = `${h}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+  el.classList.remove("warning", "danger");
+  if (total <= 10 * 60 && total > 5 * 60) el.classList.add("warning");
+  if (total <= 5 * 60) el.classList.add("danger");
+}
+
+function renderQuestionGrid() {
+  const grid = document.getElementById("q-grid");
+  grid.innerHTML = "";
+  state.currentExamQuestions.forEach((q, idx) => {
+    const dot = document.createElement("button");
+    dot.className = "q-dot";
+    if (state.answers[q.qid] !== undefined) dot.classList.add("answered");
+    if (state.flags[q.qid]) dot.classList.add("flagged");
+    if (idx === state.currentQuestionIndex) dot.classList.add("current");
+    if (state.reviewMode) {
+      const isCorrect = state.answers[q.qid] === q.correct;
+      if (state.answers[q.qid] !== undefined) dot.classList.add(isCorrect ? "correct" : "wrong");
+    }
+    dot.textContent = idx + 1;
+    dot.onclick = () => {
+      state.currentQuestionIndex = idx;
+      renderQuestionGrid();
+      renderQuestion();
+    };
+    grid.appendChild(dot);
+  });
+}
+
+function selectAnswer(index) {
+  if (state.reviewMode) return;
+  const q = state.currentExamQuestions[state.currentQuestionIndex];
+  state.answers[q.qid] = index;
+  renderQuestionGrid();
+  renderQuestion();
+}
+
+function toggleFlag() {
+  const q = state.currentExamQuestions[state.currentQuestionIndex];
+  state.flags[q.qid] = !state.flags[q.qid];
+  renderQuestionGrid();
+  renderQuestion();
+}
+
+function renderQuestion() {
+  const q = state.currentExamQuestions[state.currentQuestionIndex];
+  const container = document.getElementById("q-area");
+
+  const answer = state.answers[q.qid];
+  const answered = answer !== undefined;
+  const correct = answered && answer === q.correct;
+
+  const codeHtml = q.code ? `<div class="q-code">${escapeHtml(q.code)}</div>` : "";
+
+  const optionsHtml = q.options.map((opt, idx) => {
+    let cls = "option";
+    if (!state.reviewMode && answer === idx) cls += " selected";
+    if (state.reviewMode) {
+      if (idx === q.correct && answer === idx) cls += " correct";
+      else if (idx === q.correct && answer !== idx) cls += " reveal-correct";
+      else if (answer === idx && idx !== q.correct) cls += " wrong";
+    }
+    return `
+      <div class="${cls}" onclick="selectAnswer(${idx})">
+        <div class="option-letter">${String.fromCharCode(65 + idx)}</div>
+        <div class="option-text">${escapeHtml(opt)}</div>
+      </div>
+    `;
+  }).join("");
+
+  const explanationHtml = state.reviewMode ? `
+    <div class="explanation show">
+      <div class="exp-head">
+        <div class="exp-badge ${correct ? "correct" : "wrong"}">${correct ? "CORRECT" : "REVIEW"}</div>
+        <div class="exp-title">Answer: ${String.fromCharCode(65 + q.correct)}</div>
+      </div>
+      <div class="exp-body">${q.explanation}</div>
+    </div>
+  ` : "";
+
+  const prevDisabled = state.currentQuestionIndex === 0 ? "disabled" : "";
+  const nextLabel = state.currentQuestionIndex === state.currentExamQuestions.length - 1 ? "Last Question" : "Next";
+  const nextAction = state.currentQuestionIndex === state.currentExamQuestions.length - 1
+    ? "submitExam()"
+    : "goNext()";
+
+  container.innerHTML = `
+    <div class="q-section-tag">${escapeHtml(q.domain)}</div>
+    <div class="q-number">Question ${state.currentQuestionIndex + 1} of ${state.currentExamQuestions.length}</div>
+    <div class="q-text">${escapeHtml(q.text)}</div>
+    ${codeHtml}
+    <div class="options">${optionsHtml}</div>
+    ${explanationHtml}
+    <div class="q-actions">
+      <button class="btn btn-secondary" ${prevDisabled} onclick="goPrev()">Previous</button>
+      <button class="btn btn-primary" onclick="${nextAction}">${nextLabel}</button>
+      <button class="btn-flag ${state.flags[q.qid] ? "active" : ""}" onclick="toggleFlag()">⚑</button>
+      <button class="btn btn-secondary" onclick="jumpFirstUnanswered()">First Unanswered</button>
+    </div>
+  `;
+
+  const progressPct = ((Object.keys(state.answers).length / state.currentExamQuestions.length) * 100).toFixed(1);
+  document.getElementById("progress-fill").style.width = `${progressPct}%`;
+  document.getElementById("progress-text").textContent = `${Object.keys(state.answers).length} / ${state.currentExamQuestions.length}`;
+}
+
+function goPrev() {
+  if (state.currentQuestionIndex > 0) {
+    state.currentQuestionIndex--;
+    renderQuestionGrid();
+    renderQuestion();
+  }
+}
+
+function goNext() {
+  if (state.currentQuestionIndex < state.currentExamQuestions.length - 1) {
+    state.currentQuestionIndex++;
+    renderQuestionGrid();
+    renderQuestion();
+  }
+}
+
+function jumpFirstUnanswered() {
+  const idx = state.currentExamQuestions.findIndex(q => state.answers[q.qid] === undefined);
+  if (idx >= 0) {
+    state.currentQuestionIndex = idx;
+    renderQuestionGrid();
+    renderQuestion();
+  }
+}
+
+function submitExam(fromTimer = false) {
+  if (state.submitted) return;
+  const unanswered = state.currentExamQuestions.filter(q => state.answers[q.qid] === undefined).length;
+  if (!fromTimer && unanswered > 0) {
+    const proceed = confirm(`You still have ${unanswered} unanswered question(s). Submit anyway?`);
+    if (!proceed) return;
+  }
+
+  state.submitted = true;
+  state.reviewMode = true;
+  clearInterval(state.timerInterval);
+  document.getElementById("review-banner").style.display = "block";
+  renderQuestionGrid();
+  renderQuestion();
+  renderResults();
+}
+
+function renderResults() {
+  const total = state.currentExamQuestions.length;
+  const answered = Object.keys(state.answers).length;
+  const correctCount = state.currentExamQuestions.filter(q => state.answers[q.qid] === q.correct).length;
+  const pct = Math.round((correctCount / total) * 100);
+  const pass = pct >= 70; // unofficial target for practice use
+
+  const domainStats = DOMAIN_ORDER.map(domain => {
+    const qs = state.currentExamQuestions.filter(q => q.domain === domain);
+    const correct = qs.filter(q => state.answers[q.qid] === q.correct).length;
+    return {
+      domain,
+      total: qs.length,
+      correct,
+      pct: Math.round((correct / qs.length) * 100)
+    };
+  });
+
+  const usedSeconds = (90 * 60) - state.timerRemaining;
+  const mins = Math.floor(usedSeconds / 60);
+  const secs = usedSeconds % 60;
+
+  const oldStats = getStoredStats(state.currentExamDef.id) || { attempts: 0, bestPct: 0, lastPct: 0 };
+  const newStats = {
+    attempts: oldStats.attempts + 1,
+    bestPct: Math.max(oldStats.bestPct, pct),
+    lastPct: pct
+  };
+  setStoredStats(state.currentExamDef.id, newStats);
+
+  const breakdownHtml = domainStats.map(s => `
+    <div class="section-row">
+      <div class="section-name">${escapeHtml(shortDomain(s.domain))}</div>
+      <div class="section-bar-wrap"><div class="section-bar-fill" style="width:${s.pct}%"></div></div>
+      <div class="section-pct">${s.correct}/${s.total}</div>
+    </div>
+  `).join("");
+
+  document.getElementById("results-inner").innerHTML = `
+    <div class="results-header">
+      <div class="score-circle ${pass ? "" : "fail"}">
+        <div class="score-pct">${pct}%</div>
+        <div class="score-label">Practice Score</div>
+      </div>
+      <div class="result-verdict">${pass ? "Strong practice result" : "Needs another pass"} </div>
+      <div class="result-sub">${escapeHtml(state.currentExamDef.title)} · Detailed explanations are now available in review mode inside the exam page.</div>
+    </div>
+
+    <div class="note-box">
+      This is an unofficial simulator. It mirrors the current public Databricks Associate exam structure with 45 questions and a 90-minute timer, but the questions here are original practice content. Use the domain breakdown below to target weak areas before your next attempt.
+    </div>
+
+    <div class="results-stats">
+      <div class="stat-card"><div class="stat-num">${correctCount}</div><div class="stat-label">Correct</div></div>
+      <div class="stat-card"><div class="stat-num">${answered}</div><div class="stat-label">Answered</div></div>
+      <div class="stat-card"><div class="stat-num">${total - answered}</div><div class="stat-label">Blank</div></div>
+      <div class="stat-card"><div class="stat-num">${mins}m ${secs}s</div><div class="stat-label">Time Used</div></div>
+    </div>
+
+    <div class="section-breakdown">
+      <h3>Domain breakdown</h3>
+      ${breakdownHtml}
+    </div>
+
+    <div class="section-breakdown">
+      <h3>Current blueprint used in this page</h3>
+      <div class="blueprint-list">
+        <div class="bp-item"><div class="bp-v">10%</div><div class="bp-l">Platform</div></div>
+        <div class="bp-item"><div class="bp-v">30%</div><div class="bp-l">Development & Ingestion</div></div>
+        <div class="bp-item"><div class="bp-v">31%</div><div class="bp-l">Processing & Transformations</div></div>
+        <div class="bp-item"><div class="bp-v">18%</div><div class="bp-l">Productionizing</div></div>
+        <div class="bp-item"><div class="bp-v">11%</div><div class="bp-l">Governance & Quality</div></div>
+      </div>
+    </div>
+
+    <div class="results-actions">
+      <button class="btn btn-primary" onclick="backToReview()">Back to review</button>
+      <button class="btn btn-secondary" onclick="goHome()">Home</button>
+      <button class="btn btn-secondary" onclick="retakeCurrentExam()">Retake this exam</button>
+    </div>
+  `;
+
+  document.getElementById("exam-screen").style.display = "none";
+  document.getElementById("results-screen").style.display = "block";
+  renderHome();
+}
+
+function backToReview() {
+  document.getElementById("results-screen").style.display = "none";
+  document.getElementById("exam-screen").style.display = "block";
+  renderQuestionGrid();
+  renderQuestion();
+}
+
+function retakeCurrentExam() {
+  startExam(state.currentExamDef.id);
+}
+
+function goHome() {
+  clearInterval(state.timerInterval);
+  document.getElementById("exam-screen").style.display = "none";
+  document.getElementById("results-screen").style.display = "none";
+  document.getElementById("home-screen").style.display = "flex";
+  renderHome();
+}
+
+function confirmExit() {
+  if (!state.submitted && Object.keys(state.answers).length > 0) {
+    if (!confirm("Leave this exam? Your current attempt will be lost.")) return;
+  }
+  clearInterval(state.timerInterval);
+  goHome();
+}
+
+function shortDomain(domain) {
+  if (domain === "Databricks Intelligence Platform") return "Databricks Intelligence Platform";
+  if (domain === "Development and Ingestion") return "Development and Ingestion";
+  if (domain === "Data Processing & Transformations") return "Data Processing and Transformations";
+  if (domain === "Productionizing Data Pipelines") return "Productionizing Data Pipelines";
+  return "Data Governance and Quality";
+}
+
+function escapeHtml(str) {
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+renderHome();
+</script>
+</body>
+</html>

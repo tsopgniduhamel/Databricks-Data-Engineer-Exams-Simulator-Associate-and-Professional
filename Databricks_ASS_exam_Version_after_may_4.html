@@ -1,0 +1,1264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Databricks Data Engineer Associate — May 4, 2026 Blueprint Practice Exams</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Sora:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0e1a;
+    --surface: #111827;
+    --surface2: #1a2235;
+    --surface3: #24314a;
+    --border: #1f2d44;
+    --accent: #ff4d00;
+    --accent2: #ff8c42;
+    --blue: #3b82f6;
+    --green: #22c55e;
+    --red: #ef4444;
+    --yellow: #f59e0b;
+    --text: #e2e8f0;
+    --text-dim: #94a3b8;
+    --text-muted: #64748b;
+    --mono: 'JetBrains Mono', monospace;
+    --sans: 'Sora', sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  body::before {
+    content:'';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(59,130,246,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(59,130,246,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events:none;
+    z-index:0;
+  }
+  .app { position: relative; z-index: 1; }
+
+  #home-screen {
+    min-height: 100vh;
+    padding: 48px 20px 72px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+  }
+  .logo-badge {
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: white;
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    padding: 6px 14px;
+    border-radius: 3px;
+    margin-bottom: 24px;
+    text-transform: uppercase;
+  }
+  h1.hero {
+    font-size: clamp(2rem, 5vw, 3.4rem);
+    line-height: 1.08;
+    text-align: center;
+    font-weight: 800;
+    letter-spacing: -1px;
+    margin-bottom: 12px;
+  }
+  h1.hero span {
+    background: linear-gradient(90deg, var(--accent), var(--accent2), var(--yellow));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero-sub {
+    max-width: 780px;
+    text-align:center;
+    color: var(--text-dim);
+    font-size: 15px;
+    line-height: 1.7;
+    margin-bottom: 20px;
+  }
+  .hero-meta {
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    justify-content:center;
+    margin-bottom: 42px;
+  }
+  .meta-pill {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 6px 12px;
+    font-size: 11px;
+    font-family: var(--mono);
+    color: var(--text-dim);
+  }
+  .exam-cards {
+    width:100%;
+    max-width:1100px;
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap:20px;
+  }
+  .exam-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 28px 24px;
+    position: relative;
+    overflow:hidden;
+    transition: .22s ease;
+    cursor:pointer;
+  }
+  .exam-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--accent);
+    box-shadow: 0 18px 50px rgba(255,77,0,0.14);
+  }
+  .exam-card::before {
+    content:'';
+    position:absolute;
+    top:0;left:0;right:0;
+    height:3px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    transform: scaleX(0);
+    transform-origin:left;
+    transition: transform .22s ease;
+  }
+  .exam-card:hover::before { transform: scaleX(1); }
+  .card-num {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent);
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+  }
+  .card-title {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .card-desc {
+    color: var(--text-dim);
+    font-size: 13px;
+    line-height: 1.65;
+    margin-bottom: 18px;
+  }
+  .card-grid {
+    display:grid;
+    grid-template-columns: repeat(2, minmax(0,1fr));
+    gap:10px;
+    margin-bottom:18px;
+  }
+  .card-stat {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px;
+  }
+  .card-stat-v {
+    font-family: var(--mono);
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .card-stat-l {
+    color: var(--text-muted);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-family: var(--mono);
+  }
+  .domain-list {
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-bottom: 16px;
+  }
+  .domain-tag {
+    background: rgba(59,130,246,0.08);
+    border: 1px solid rgba(59,130,246,0.18);
+    color: #b9d2ff;
+    border-radius: 999px;
+    padding: 4px 10px;
+    font-size: 10px;
+    font-family: var(--mono);
+  }
+  .card-score {
+    border-top: 1px solid var(--border);
+    padding-top: 14px;
+    font-size: 12px;
+    color: var(--text-muted);
+    font-family: var(--mono);
+  }
+  .card-score strong { color: var(--green); }
+
+  #exam-screen, #results-screen { display:none; min-height:100vh; }
+  .exam-header {
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    height: 68px;
+    padding: 0 18px;
+    background: rgba(10,14,26,0.94);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+  }
+  .exam-header-left {
+    display:flex;
+    align-items:center;
+    gap:14px;
+    min-width: 0;
+  }
+  .back-btn {
+    background: var(--surface);
+    color: var(--text-dim);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 14px;
+    cursor:pointer;
+    font-family: var(--mono);
+    font-size: 12px;
+  }
+  .back-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .exam-title-bar {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text-dim);
+    min-width: 0;
+  }
+  .exam-title-bar strong {
+    color: var(--text);
+    display:block;
+    white-space: nowrap;
+    overflow:hidden;
+    text-overflow: ellipsis;
+  }
+  .progress-container {
+    display:flex;
+    align-items:center;
+    gap:10px;
+    flex:1;
+    max-width: 320px;
+  }
+  .progress-bar {
+    flex:1;
+    height: 5px;
+    background: var(--surface2);
+    border-radius: 999px;
+    overflow:hidden;
+  }
+  .progress-fill {
+    height:100%;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    width:0%;
+    transition: width .25s ease;
+  }
+  .progress-text {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-dim);
+    white-space: nowrap;
+  }
+  .timer {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 14px;
+    min-width: 96px;
+    text-align:center;
+    font-family: var(--mono);
+    font-weight: 700;
+  }
+  .timer.warning { color: var(--yellow); border-color: rgba(245,158,11,.4); }
+  .timer.danger { color: var(--red); border-color: rgba(239,68,68,.45); }
+  .btn-submit-exam {
+    background: transparent;
+    border: 1px solid rgba(34,197,94,.5);
+    color: var(--green);
+    border-radius: 8px;
+    padding: 9px 16px;
+    cursor:pointer;
+    font-size: 13px;
+    font-weight: 700;
+    font-family: var(--sans);
+  }
+  .btn-submit-exam:hover { background: rgba(34,197,94,.08); }
+
+  .exam-body {
+    display:grid;
+    grid-template-columns: 260px 1fr;
+    min-height: calc(100vh - 68px);
+  }
+  .q-nav {
+    position: sticky;
+    top: 68px;
+    height: calc(100vh - 68px);
+    overflow-y:auto;
+    padding: 18px 16px;
+    border-right: 1px solid var(--border);
+  }
+  .q-nav-title {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text-muted);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .q-grid {
+    display:grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 6px;
+    margin-bottom: 18px;
+  }
+  .q-dot {
+    aspect-ratio:1;
+    border-radius:6px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border:1px solid var(--border);
+    background: var(--surface);
+    color: var(--text-muted);
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight:700;
+    cursor:pointer;
+    transition:.15s ease;
+  }
+  .q-dot:hover { border-color: var(--blue); color: var(--blue); }
+  .q-dot.answered { background: rgba(59,130,246,.10); border-color: rgba(59,130,246,.45); color: #bfd7ff; }
+  .q-dot.current { background: var(--accent); border-color: var(--accent); color:#fff; }
+  .q-dot.flagged { box-shadow: inset 0 0 0 1px var(--yellow); color: var(--yellow); }
+  .q-dot.correct { background: rgba(34,197,94,.12); border-color: var(--green); color: var(--green); }
+  .q-dot.wrong { background: rgba(239,68,68,.12); border-color: var(--red); color: var(--red); }
+  .legend {
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+  .legend-row {
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .legend-dot {
+    width: 11px; height:11px; border-radius: 3px; border:1px solid var(--border);
+  }
+
+  .q-area {
+    padding: 36px 42px 60px;
+    max-width: 980px;
+  }
+  .review-banner {
+    display:none;
+    background: rgba(59,130,246,.10);
+    border: 1px solid rgba(59,130,246,.28);
+    color: #bfd7ff;
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-family: var(--mono);
+    font-size: 12px;
+    margin-bottom: 18px;
+  }
+  .q-section-tag {
+    display:inline-block;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight:700;
+    margin-bottom: 10px;
+  }
+  .q-number {
+    font-family: var(--mono);
+    color: var(--text-muted);
+    font-size: 12px;
+    margin-bottom: 14px;
+  }
+  .q-text {
+    font-size: 16px;
+    line-height: 1.74;
+    margin-bottom: 16px;
+  }
+  .q-code {
+    white-space: pre-wrap;
+    background: #060a14;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px;
+    margin-bottom: 22px;
+    font-family: var(--mono);
+    font-size: 12.5px;
+    line-height: 1.7;
+    color: #bfe8ff;
+  }
+  .options {
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    margin-bottom: 24px;
+  }
+  .option {
+    background: var(--surface);
+    border:1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    display:flex;
+    gap: 14px;
+    align-items:flex-start;
+    cursor:pointer;
+    transition:.16s ease;
+  }
+  .option:hover { border-color: var(--blue); background: var(--surface2); }
+  .option-letter {
+    width: 20px;
+    flex-shrink:0;
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-muted);
+    padding-top: 2px;
+  }
+  .option-text {
+    flex:1;
+    font-size: 14px;
+    line-height: 1.65;
+  }
+  .option.selected {
+    border-color: rgba(59,130,246,.55);
+    background: rgba(59,130,246,.08);
+  }
+  .option.selected .option-letter { color: var(--blue); }
+  .option.correct {
+    border-color: rgba(34,197,94,.6);
+    background: rgba(34,197,94,.10);
+  }
+  .option.correct .option-letter { color: var(--green); }
+  .option.wrong {
+    border-color: rgba(239,68,68,.6);
+    background: rgba(239,68,68,.10);
+  }
+  .option.wrong .option-letter { color: var(--red); }
+  .option.reveal-correct {
+    border-color: rgba(34,197,94,.45);
+    background: rgba(34,197,94,.06);
+  }
+  .option.reveal-correct .option-letter { color: var(--green); }
+
+  .explanation {
+    display:none;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 22px;
+    margin-bottom: 24px;
+  }
+  .explanation.show { display:block; }
+  .exp-head {
+    display:flex;
+    gap:10px;
+    align-items:center;
+    margin-bottom: 10px;
+  }
+  .exp-badge {
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 999px;
+    letter-spacing: 1px;
+  }
+  .exp-badge.correct { background: rgba(34,197,94,.14); color: var(--green); }
+  .exp-badge.wrong { background: rgba(239,68,68,.14); color: var(--red); }
+  .exp-title {
+    font-size: 13px;
+    color: var(--text-dim);
+  }
+  .exp-body {
+    color: var(--text-dim);
+    font-size: 14px;
+    line-height: 1.8;
+  }
+  .exp-body strong { color: var(--text); }
+
+  .q-actions {
+    display:flex;
+    align-items:center;
+    gap:10px;
+    flex-wrap:wrap;
+  }
+  .btn {
+    border:none;
+    border-radius: 9px;
+    padding: 10px 18px;
+    cursor:pointer;
+    font-size: 14px;
+    font-weight:700;
+    font-family: var(--sans);
+  }
+  .btn-primary {
+    color:#fff;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+  }
+  .btn-secondary {
+    color: var(--text-dim);
+    background: var(--surface);
+    border: 1px solid var(--border);
+  }
+  .btn-flag {
+    color: var(--text-muted);
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    padding: 10px 14px;
+    cursor:pointer;
+    font-size: 16px;
+  }
+  .btn-flag.active {
+    color: var(--yellow);
+    border-color: rgba(245,158,11,.45);
+    background: rgba(245,158,11,.08);
+  }
+  .btn:hover { opacity:.95; }
+
+  #results-screen {
+    padding: 56px 20px 70px;
+  }
+  .results-inner {
+    max-width: 920px;
+    margin: 0 auto;
+  }
+  .results-header {
+    text-align:center;
+    margin-bottom: 34px;
+  }
+  .score-circle {
+    width: 160px;
+    height:160px;
+    border-radius: 50%;
+    margin: 0 auto 22px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    border: 4px solid var(--green);
+  }
+  .score-circle.fail { border-color: var(--red); }
+  .score-pct {
+    font-family: var(--mono);
+    font-size: 40px;
+    font-weight: 800;
+    line-height: 1;
+  }
+  .score-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-muted);
+    letter-spacing:1px;
+    margin-top: 6px;
+  }
+  .result-verdict {
+    font-size: 28px;
+    font-weight:800;
+    margin-bottom: 8px;
+  }
+  .result-sub {
+    color: var(--text-dim);
+    font-size: 14px;
+    line-height:1.7;
+  }
+  .results-stats {
+    display:grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin-bottom: 28px;
+  }
+  .stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px;
+    text-align:center;
+  }
+  .stat-num {
+    font-family: var(--mono);
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .stat-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .section-breakdown {
+    background: var(--surface);
+    border:1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px;
+    margin-bottom: 24px;
+  }
+  .section-breakdown h3 {
+    font-size: 14px;
+    font-family: var(--mono);
+    letter-spacing: 1px;
+    color: var(--text-dim);
+    margin-bottom: 18px;
+    text-transform: uppercase;
+  }
+  .section-row {
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom: 12px;
+  }
+  .section-name {
+    width: 270px;
+    flex-shrink:0;
+    font-size: 12px;
+    color: var(--text-dim);
+  }
+  .section-bar-wrap {
+    flex:1;
+    height: 8px;
+    background: var(--surface2);
+    border-radius: 999px;
+    overflow:hidden;
+  }
+  .section-bar-fill {
+    height: 100%;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+  }
+  .section-pct {
+    width: 44px;
+    text-align:right;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text-dim);
+  }
+  .results-actions {
+    display:flex;
+    gap:12px;
+    justify-content:center;
+    flex-wrap:wrap;
+  }
+  .note-box {
+    background: rgba(59,130,246,.08);
+    border: 1px solid rgba(59,130,246,.18);
+    color: var(--text-dim);
+    border-radius: 12px;
+    padding: 16px 18px;
+    margin-bottom: 24px;
+    line-height: 1.75;
+    font-size: 14px;
+  }
+  .blueprint-list {
+    display:grid;
+    grid-template-columns: repeat(5, minmax(0,1fr));
+    gap:10px;
+    margin-top: 14px;
+  }
+  .bp-item {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px;
+  }
+  .bp-v {
+    font-family: var(--mono);
+    font-size: 18px;
+    font-weight:700;
+    margin-bottom:4px;
+  }
+  .bp-l {
+    font-size: 11px;
+    color: var(--text-muted);
+    line-height:1.5;
+  }
+  @media (max-width: 900px) {
+    .exam-body { grid-template-columns: 1fr; }
+    .q-nav { display:none; }
+    .q-area { padding: 26px 18px 50px; }
+    .results-stats { grid-template-columns: repeat(2, 1fr); }
+    .blueprint-list { grid-template-columns: repeat(2, minmax(0,1fr)); }
+    .progress-container { max-width: 140px; }
+    .exam-header {
+      padding: 10px 12px;
+      height: auto;
+      align-items:flex-start;
+      flex-wrap: wrap;
+    }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <div id="home-screen">
+    <div class="logo-badge">Databricks Associate</div>
+    <h1 class="hero">Data Engineer <span>Associate</span><br>3 Full Practice Exams</h1>
+    <p class="hero-sub">Three full-length, exam-style mock tests built around the current official Databricks Data Engineer Associate structure: 45 scored questions, 90 minutes, with explanations hidden until you submit and review.</p>
+    <div class="hero-meta">
+      <div class="meta-pill">45 questions each</div>
+      <div class="meta-pill">90-minute timer</div>
+      <div class="meta-pill">Review mode after submit</div>
+      <div class="meta-pill">SQL + PySpark focused</div>
+      <div class="meta-pill">Unofficial practice</div>
+    </div>
+    <div class="exam-cards" id="exam-cards"></div>
+  </div>
+
+  <div id="exam-screen">
+    <div class="exam-header">
+      <div class="exam-header-left">
+        <button class="back-btn" onclick="confirmExit()">← Home</button>
+        <div class="exam-title-bar"><strong id="exam-title-bar"></strong><span id="exam-subtitle"></span></div>
+      </div>
+      <div class="progress-container">
+        <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+        <div class="progress-text" id="progress-text">0 / 45</div>
+      </div>
+      <div class="timer" id="timer">1:30:00</div>
+      <button class="btn-submit-exam" onclick="submitExam()">Submit Exam</button>
+    </div>
+
+    <div class="exam-body">
+      <aside class="q-nav">
+        <div class="q-nav-title">Questions</div>
+        <div class="q-grid" id="q-grid"></div>
+        <div class="legend">
+          <div class="legend-row"><div class="legend-dot" style="background:rgba(59,130,246,.10); border-color:rgba(59,130,246,.45)"></div>Answered</div>
+          <div class="legend-row"><div class="legend-dot" style="background:var(--accent); border-color:var(--accent)"></div>Current</div>
+          <div class="legend-row"><div class="legend-dot" style="border-color:var(--yellow)"></div>Flagged</div>
+        </div>
+      </aside>
+
+      <main class="q-area">
+        <div class="review-banner" id="review-banner">Review mode: explanations and correct answers are now visible.</div>
+        <div id="q-area"></div>
+      </main>
+    </div>
+  </div>
+
+  <div id="results-screen">
+    <div class="results-inner" id="results-inner"></div>
+  </div>
+</div>
+
+<script>
+const QUESTION_BANK = [{"domain": "Databricks Intelligence Platform", "text": "A BI team needs fast, low-ops SQL analytics on Unity-Catalog-governed Delta tables. Which compute choice is the best fit?", "options": ["A. An all-purpose cluster shared by analysts", "B. A jobs cluster started from a notebook", "C. A SQL warehouse", "D. A single-node personal compute"], "correct": 2, "explanation": "SQL warehouses are designed for SQL analytics and BI workloads. They separate analytics compute from engineering compute, support governed access to Unity Catalog objects, and reduce operational overhead compared with all-purpose clusters.", "code": ""}, {"domain": "Databricks Intelligence Platform", "text": "Which statement best captures the value of the Databricks Data Intelligence Platform in a data engineering workflow?", "options": ["A. It replaces Delta Lake with a proprietary file format", "B. It unifies storage, compute, governance, and AI-assisted workflows on one platform", "C. It requires separate tools for governance and orchestration", "D. It only supports batch processing, not streaming"], "correct": 1, "explanation": "The platform’s value is the combination of lakehouse storage, multiple compute modalities, governance through Unity Catalog, orchestration, and AI-assisted development in one environment.", "code": ""}, {"domain": "Databricks Intelligence Platform", "text": "A team wants Databricks to automatically maintain table layout and apply performance improvements in the background where supported. Which pair of features should they focus on?", "options": ["A. VACUUM and RESTORE", "B. Liquid Clustering and predictive optimization", "C. Broadcast joins and cache tables", "D. Photon and Delta Sharing"], "correct": 1, "explanation": "The new exam guide explicitly calls out Liquid Clustering and predictive optimization. Liquid Clustering improves data layout flexibility, and predictive optimization automates selected maintenance and optimization behaviors for supported Unity Catalog tables.", "code": ""}, {"domain": "Databricks Intelligence Platform", "text": "A developer needs an interactive environment for iterative PySpark development and ad hoc debugging. Which compute is most appropriate?", "options": ["A. A SQL warehouse", "B. An all-purpose compute resource attached to a notebook", "C. A file-arrival Lakeflow job trigger", "D. A dashboard task"], "correct": 1, "explanation": "Interactive notebook development is best served by all-purpose compute. SQL warehouses are for SQL analytics, while job triggers and dashboard tasks are orchestration concepts rather than development compute.", "code": ""}, {"domain": "Databricks Intelligence Platform", "text": "Which statement about Delta Lake is correct?", "options": ["A. Delta Lake removes the need for transaction logs", "B. Delta Lake adds ACID transactions, schema enforcement/evolution support, and time-travel-related capabilities on top of object storage", "C. Delta Lake can only be queried from notebooks", "D. Delta Lake tables cannot be governed by Unity Catalog"], "correct": 1, "explanation": "Delta Lake adds reliability features such as ACID transactions and schema controls while still storing data in open files on cloud object storage.", "code": ""}, {"domain": "Databricks Intelligence Platform", "text": "A team must minimize startup management and wants Databricks to handle more of the compute tuning and operations for a supported workload. Which option best matches that goal?", "options": ["A. Serverless compute where supported", "B. A manually tuned single-node cluster", "C. An external Spark cluster outside Databricks", "D. A shallow clone of the source table"], "correct": 0, "explanation": "The new guide explicitly mentions using serverless for hands-off, auto-optimized compute managed by Databricks. That is the lowest-ops fit when the workload type is supported.", "code": ""}, {"domain": "Data Ingestion and Loading", "text": "You need to incrementally load new CSV files from cloud object storage into a Unity-Catalog-governed table without reloading files already ingested. Which command is designed for this?", "options": ["A. MERGE INTO", "B. COPY INTO", "C. INSERT OVERWRITE", "D. ANALYZE TABLE"], "correct": 1, "explanation": "COPY INTO is specifically designed for incremental file loading from object storage. It tracks already ingested files and skips them on later runs unless forced.", "code": ""}, {"domain": "Data Ingestion and Loading", "text": "Which source is a valid Auto Loader file source use case from the new blueprint?", "options": ["A. A PostgreSQL table over JDBC directly as an Auto Loader source", "B. Files arriving in ADLS, S3, or GCS", "C. A Unity Catalog schema as an Auto Loader source", "D. A SQL warehouse result set as an Auto Loader source"], "correct": 1, "explanation": "Auto Loader is for files in cloud object storage such as ADLS, S3, and GCS. Database ingestion is handled through JDBC, REST-based approaches, or Lakeflow Connect, not Auto Loader.", "code": ""}, {"domain": "Data Ingestion and Loading", "text": "When using Auto Loader in file notification mode, what is the main benefit compared with directory listing mode?", "options": ["A. It can read only JSON files", "B. It avoids schema evolution", "C. It reduces expensive directory scans and scales better for very large file arrival volumes", "D. It automatically converts files to Parquet before reading"], "correct": 2, "explanation": "File notification mode is more scalable because Databricks uses cloud eventing instead of repeatedly listing large directories.", "code": ""}, {"domain": "Data Ingestion and Loading", "text": "What is the best description of schema evolution with Auto Loader?", "options": ["A. Auto Loader permanently ignores new columns", "B. Auto Loader can detect unexpected fields and either evolve the target schema or rescue the data based on configuration", "C. Auto Loader only supports fixed schemas with no evolution options", "D. Auto Loader evolves schemas only for JDBC sources"], "correct": 1, "explanation": "The guide specifically calls out using Auto Loader with schema enforcement and schema evolution. New fields can be handled by evolving schemas or rescuing unexpected content depending on settings.", "code": ""}, {"domain": "Data Ingestion and Loading", "text": "A team needs to ingest data from enterprise SaaS and database systems into Unity-Catalog-governed tables with less custom code. Which capability from the new blueprint should they evaluate first?", "options": ["A. Lakeflow Connect standard or managed connectors", "B. ZORDER", "C. Table ACLs", "D. Databricks Repos"], "correct": 0, "explanation": "Lakeflow Connect is called out explicitly in the new guide for enterprise ingestion into Unity-Catalog-governed tables.", "code": ""}, {"domain": "Data Ingestion and Loading", "text": "You have a small operational API that returns JSON and there is no managed connector for it. According to the new blueprint, what is an acceptable ingestion pattern?", "options": ["A. Use JDBC from the API endpoint", "B. Use a REST client inside a notebook and land the data to storage or directly to a Unity-Catalog-governed table", "C. Use Auto Loader against the API URL", "D. Use only Delta Sharing"], "correct": 1, "explanation": "The new guide explicitly mentions using JDBC/ODBC or REST clients in notebooks to land data into storage or governed tables, usually scheduled with Lakeflow Jobs.", "code": ""}, {"domain": "Data Ingestion and Loading", "text": "A source drops nested JSON files every hour into cloud storage. Which pattern best fits the new exam guide?", "options": ["A. Auto Loader with schema enforcement/evolution to ingest the files into Delta tables", "B. A SQL warehouse dashboard refresh task", "C. A row filter in Unity Catalog", "D. A DENY privilege on the landing schema"], "correct": 0, "explanation": "The guide explicitly includes semi-structured data ingestion and Auto Loader with schema handling into Unity-Catalog-governed Delta tables.", "code": ""}, {"domain": "Data Ingestion and Loading", "text": "What is the strongest reason to choose COPY INTO instead of a plain one-time batch read followed by overwrite for repeated file ingestion?", "options": ["A. COPY INTO adds row-level security automatically", "B. COPY INTO supports incremental file loading behavior without reprocessing previously loaded files by default", "C. COPY INTO only works on non-Delta targets", "D. COPY INTO eliminates the need for cloud storage permissions"], "correct": 1, "explanation": "COPY INTO is intended for repeated incremental file ingestion and avoids unnecessary reloads of files that were already processed.", "code": ""}, {"domain": "Data Ingestion and Loading", "text": "A team must prioritize among Auto Loader, Lakeflow Connect, and a custom REST notebook pattern. Which factor is most aligned with the new guide when making that decision?", "options": ["A. The favorite language of the engineer", "B. Data volume, ingestion frequency, source type, and governance needs", "C. Whether the bronze table already exists", "D. Whether the destination is a view"], "correct": 1, "explanation": "The new outline explicitly says to prioritize among ingestion methods based on technical requirements such as data volume, ingestion frequency, data types, and governance needs with Unity Catalog.", "code": ""}, {"domain": "Data Ingestion and Loading", "text": "Which statement about loading local files during development is correct?", "options": ["A. Local files can never be imported into Databricks", "B. The new guide includes importing from local files as part of ingestion patterns", "C. Local files are only supported through Delta Sharing", "D. Local files require Lakeflow Connect managed connectors"], "correct": 1, "explanation": "The post–May 4 guide explicitly mentions importing data from sources such as local files, in addition to Lakeflow Connect connectors.", "code": ""}, {"domain": "Data Ingestion and Loading", "text": "A team ingests files once per day and wants a simple, scheduled, batch-oriented landing pattern into a governed Delta table. Which is the best first choice if the files sit in cloud object storage and there is no need for continuous streaming semantics?", "options": ["A. COPY INTO", "B. Continuous processing mode", "C. A dynamic view", "D. Column masking"], "correct": 0, "explanation": "For batch-oriented incremental file ingestion from object storage, COPY INTO is often the simplest fit.", "code": ""}, {"domain": "Data Ingestion and Loading", "text": "What is a good reason to use a notebook with JDBC instead of Auto Loader?", "options": ["A. You are reading rows from a database rather than files from cloud storage", "B. You need file notification mode", "C. You need schema rescue mode on JSON files", "D. You want to avoid scheduling"], "correct": 0, "explanation": "Auto Loader is file-oriented. JDBC is appropriate when the source is a database and you need to pull rows rather than detect arriving files.", "code": ""}, {"domain": "Data Transformation and Modeling", "text": "Which description of the Medallion Architecture is correct?", "options": ["A. Bronze is curated business output, silver is raw landing, gold is optional backup", "B. Bronze is raw landing, silver is cleaned and conformed data, gold is business-ready data products", "C. Bronze and silver are identical, gold is only for ML", "D. Bronze is only for streaming and silver is only for batch"], "correct": 1, "explanation": "The standard pattern is bronze for raw ingestion, silver for cleaned and standardized data, and gold for business-ready datasets used by analytics and downstream consumers.", "code": ""}, {"domain": "Data Transformation and Modeling", "text": "You need to keep all rows from the left DataFrame and only matching rows from the right DataFrame. Which join should you use?", "options": ["A. Inner join", "B. Cross join", "C. Left join", "D. Union all"], "correct": 2, "explanation": "A left join preserves every row from the left side and fills unmatched right-side columns with nulls.", "code": ""}, {"domain": "Data Transformation and Modeling", "text": "When joining a very large fact DataFrame to a tiny dimension DataFrame, which strategy often improves performance?", "options": ["A. Broadcast join of the small dimension", "B. Cross join", "C. Force a single partition", "D. Repartition both sides to 1"], "correct": 0, "explanation": "Broadcast joins avoid shuffling the large table by shipping the small dimension to executors.", "code": ""}, {"domain": "Data Transformation and Modeling", "text": "Which operation turns each element of an array column into its own row?", "options": ["A. split", "B. explode", "C. union", "D. alias"], "correct": 1, "explanation": "explode converts each array element into a separate output row.", "code": ""}, {"domain": "Data Transformation and Modeling", "text": "Which statement about union and union all style behavior is correct in Spark DataFrame work?", "options": ["A. Union automatically removes duplicates", "B. Union combines rows by position and does not remove duplicates unless you deduplicate later", "C. Union can only be used on Delta tables", "D. Union is the same as a join on all columns"], "correct": 1, "explanation": "Spark DataFrame union appends rows and keeps duplicates unless you explicitly call distinct or dropDuplicates later.", "code": ""}, {"domain": "Data Transformation and Modeling", "text": "A silver pipeline needs to remove exact duplicate records based on a business key and event timestamp. Which operation is most direct?", "options": ["A. dropDuplicates on the identifying columns", "B. crossJoin then filter", "C. cache then count", "D. orderBy only"], "correct": 0, "explanation": "dropDuplicates on the relevant subset of columns is the direct deduplication operation.", "code": ""}, {"domain": "Data Transformation and Modeling", "text": "Which aggregation is appropriate when you need a fast estimate of unique users and exact cardinality is not required?", "options": ["A. mean", "B. count", "C. approx_count_distinct", "D. summary"], "correct": 2, "explanation": "approx_count_distinct gives an efficient estimate of the number of distinct values and is often faster and cheaper than exact distinct counting.", "code": ""}, {"domain": "Data Transformation and Modeling", "text": "A column full_name contains values like 'Ada Lovelace'. You need first_name and last_name columns. Which pattern best fits?", "options": ["A. explode(full_name)", "B. split(full_name, ' ')", "C. count_distinct(full_name)", "D. cross join with a names table"], "correct": 1, "explanation": "split is the correct transformation to break a delimited string into pieces that can then be indexed into separate columns.", "code": ""}, {"domain": "Data Transformation and Modeling", "text": "Which statement about basic tuning parameters is correct?", "options": ["A. spark.sql.autoBroadcastJoinThreshold influences whether small tables can be broadcast for joins", "B. spark.executor.memory sets the number of shuffle partitions", "C. spark.default.parallelism controls Unity Catalog permissions", "D. spark.driver.memory only affects SQL warehouses"], "correct": 0, "explanation": "The auto broadcast threshold is directly related to join planning for small-table broadcasts.", "code": ""}, {"domain": "Data Transformation and Modeling", "text": "What is the best description of a materialized view in the gold layer context?", "options": ["A. A logical query definition only, with no stored results", "B. A persisted object whose contents are materialized for downstream analytics use", "C. A notebook attached to a jobs cluster", "D. A Delta Sharing recipient object"], "correct": 1, "explanation": "A materialized view stores materialized results rather than only the query text, which can be valuable for BI and analytics serving patterns.", "code": ""}, {"domain": "Data Transformation and Modeling", "text": "When cleaning bronze data into silver, which practice is most aligned with the new guide?", "options": ["A. Keep all bronze null and type issues unchanged until the dashboard layer", "B. Clean nulls, standardize data types, and write the conformed result to a new silver table", "C. Delete the bronze table after each successful silver load", "D. Convert every column to STRING to avoid schema mismatches"], "correct": 1, "explanation": "The guide explicitly says to implement data cleaning by reading bronze tables, cleaning nulls, standardizing data types, and writing new silver tables.", "code": ""}, {"domain": "Data Transformation and Modeling", "text": "Which operation adds a derived column to a DataFrame?", "options": ["A. withColumn", "B. dropDuplicates", "C. unionByName", "D. describe history"], "correct": 0, "explanation": "withColumn is the standard PySpark pattern to create or replace a column.", "code": ""}, {"domain": "Data Transformation and Modeling", "text": "A BI team needs a gold object that updates continuously from upstream streaming logic. Which gold-layer object best matches that requirement?", "options": ["A. A streaming table", "B. A shallow clone", "C. A dashboard task", "D. A file arrival trigger"], "correct": 0, "explanation": "The guide explicitly calls out understanding gold-layer objects such as materialized views, views, streaming tables, and tables. A streaming table fits a continuously updated serving need.", "code": ""}, {"domain": "Data Transformation and Modeling", "text": "What is the most appropriate place to apply many data quality validation rules for standardized records in a medallion pipeline?", "options": ["A. Bronze only", "B. Silver and, where needed, Gold", "C. Only in dashboards", "D. Only in CI/CD pipelines"], "correct": 1, "explanation": "The guide says to apply data quality checks and validation rules to ensure reliable Silver and Gold datasets.", "code": ""}, {"domain": "Data Transformation and Modeling", "text": "Which result do you get from an inner join?", "options": ["A. All rows from both sides whether keys match or not", "B. Only rows with matching join keys on both sides", "C. Only unmatched rows from the left side", "D. A Cartesian product"], "correct": 1, "explanation": "An inner join returns only matching records.", "code": ""}, {"domain": "Data Transformation and Modeling", "text": "A DataFrame has a nested array column tags. After exploding it, row counts increase sharply. Why?", "options": ["A. explode duplicates the whole DataFrame once per partition", "B. explode emits one output row per array element, so rows multiply when arrays contain multiple values", "C. explode automatically performs a cross join", "D. explode sorts the data first"], "correct": 1, "explanation": "explode expands array contents into rows, so any row containing multiple array elements becomes multiple output rows.", "code": ""}, {"domain": "Data Transformation and Modeling", "text": "Which statement about views versus tables is correct for analytics teams?", "options": ["A. Views always store their own physical data", "B. Tables persist data; views generally store query logic and compute results at query time unless materialized separately", "C. Views cannot be governed in Unity Catalog", "D. Tables cannot be queried from SQL warehouses"], "correct": 1, "explanation": "A table stores data, whereas a standard view stores query logic. Materialized views are the persisted variant.", "code": ""}, {"domain": "Working with Lakeflow Jobs", "text": "A pipeline should start every day at 02:00 whether or not new data has landed. Which trigger type is most appropriate?", "options": ["A. Table update trigger", "B. File arrival trigger", "C. Scheduled trigger", "D. Manual repair run"], "correct": 2, "explanation": "A scheduled trigger is the correct time-based trigger when execution should happen at a defined clock time.", "code": ""}, {"domain": "Working with Lakeflow Jobs", "text": "A downstream task should only run if an upstream task succeeds. What Lakeflow Jobs concept enforces this?", "options": ["A. Column mask", "B. Task dependency in the DAG", "C. Predictive optimization", "D. COPY INTO history"], "correct": 1, "explanation": "Lakeflow Jobs uses a DAG-based task graph. Dependencies determine execution order and gating.", "code": ""}, {"domain": "Working with Lakeflow Jobs", "text": "A job task intermittently fails due to a short-lived external API timeout. Which feature is the most appropriate first response?", "options": ["A. Retries on the task", "B. A DENY privilege", "C. A broadcast join", "D. A SQL warehouse endpoint"], "correct": 0, "explanation": "Retries are designed for transient failures and are explicitly part of the new guide’s control-flow coverage.", "code": ""}, {"domain": "Working with Lakeflow Jobs", "text": "A pipeline should start when a new file lands in a monitored location rather than on a fixed cron schedule. Which trigger type fits?", "options": ["A. File arrival trigger", "B. Scheduled trigger", "C. Table clone trigger", "D. Driver memory trigger"], "correct": 0, "explanation": "The guide explicitly includes file arrival triggers as a Lakeflow Jobs trigger type.", "code": ""}, {"domain": "Working with Lakeflow Jobs", "text": "Which set contains valid task types called out in the new blueprint?", "options": ["A. Notebook, SQL query, dashboard, and pipeline tasks", "B. Only notebook tasks", "C. Only SQL query and dashboard tasks", "D. Git branch and pull request tasks"], "correct": 0, "explanation": "The guide explicitly lists notebook, SQL query, dashboard, and pipeline tasks.", "code": ""}, {"domain": "Working with Lakeflow Jobs", "text": "A team wants a job to branch to one path if a quality check passes and another if it fails. Which capability is being used?", "options": ["A. Conditional control flow", "B. VACUUM", "C. Delta Sharing", "D. Cross join"], "correct": 0, "explanation": "The guide calls out conditional tasks such as branching and looping.", "code": ""}, {"domain": "Working with Lakeflow Jobs", "text": "A task in the middle of a multi-task workflow fails. The engineer wants to rerun only what is necessary instead of restarting the whole workflow. Which workflow capability supports this?", "options": ["A. Repair and rerun", "B. Unity Catalog lineage", "C. Predictive optimization", "D. Auto Loader rescue mode"], "correct": 0, "explanation": "The guide explicitly mentions deploying a workflow, repairing, and rerunning a task in case of failure.", "code": ""}, {"domain": "Working with Lakeflow Jobs", "text": "When choosing between time-based and data-driven triggers, what is the main decision point?", "options": ["A. Whether the notebook uses SQL or PySpark", "B. Whether pipeline execution should follow a clock schedule or actual data availability/dependencies", "C. Whether Unity Catalog is enabled", "D. Whether a cluster policy exists"], "correct": 1, "explanation": "The guide explicitly says to choose between time-based and data-driven triggers based on data availability and pipeline dependencies.", "code": ""}, {"domain": "Implementing CI/CD", "text": "What is the main advantage of using Declarative Automation Bundles for deployment?", "options": ["A. They replace Unity Catalog permissions", "B. They package and promote the same codebase and resource definitions across environments with environment-specific overrides", "C. They only work for dashboards", "D. They eliminate the need for version control"], "correct": 1, "explanation": "The new guide says Automation Bundles are used to package, configure, and promote assets across dev, test, and prod.", "code": ""}, {"domain": "Implementing CI/CD", "text": "A developer wants to work in a feature branch inside Databricks Repos, then commit and push changes for review. Which statement is correct?", "options": ["A. Databricks Repos supports branch-based Git workflows in the workspace UI", "B. Databricks Repos can only work on the default branch", "C. Databricks Repos replaces Git hosting providers", "D. Databricks Repos cannot create pull requests"], "correct": 0, "explanation": "The guide explicitly mentions creating and switching branches, committing and pushing changes, and creating pull requests using Databricks Git integration.", "code": ""}, {"domain": "Implementing CI/CD", "text": "Which Databricks CLI action is appropriate before deployment when you want to check that a bundle definition is structurally valid?", "options": ["A. validate", "B. vacuum", "C. optimize", "D. repair-run"], "correct": 0, "explanation": "The CLI is used to validate, deploy, and manage Automation Bundles. Validation is the natural pre-deploy quality gate.", "code": ""}, {"domain": "Implementing CI/CD", "text": "Why are environment-specific variables and overrides valuable in a bundle-based deployment model?", "options": ["A. They let you promote one codebase while changing settings like workspace targets, schedules, or compute per environment", "B. They remove the need for testing", "C. They prevent use of Lakeflow Jobs in prod", "D. They make Git branches unnecessary"], "correct": 0, "explanation": "Environment-specific configuration is a core part of promoting the same bundle across dev, test, and prod safely.", "code": ""}, {"domain": "Implementing CI/CD", "text": "Which statement about CI/CD in the new guide is correct?", "options": ["A. CI/CD is limited to notebook export/import only", "B. The guide includes Databricks CLI and bundle-based promotion workflows", "C. CI/CD is only relevant for machine learning projects", "D. CI/CD replaces the need for Lakeflow Jobs"], "correct": 1, "explanation": "The post–May 4 guide explicitly introduces Automation Bundles and the Databricks CLI for automated CI/CD workflows.", "code": ""}, {"domain": "Implementing CI/CD", "text": "A team stores Lakeflow Jobs definitions in a bundle and wants different schedules in dev and prod. What is the recommended pattern?", "options": ["A. Copy and manually edit the job in each workspace", "B. Use target-specific bundle overrides", "C. Keep one hard-coded schedule for all environments", "D. Configure schedules only in the Spark UI"], "correct": 1, "explanation": "Target-specific overrides are the right way to promote the same codebase while varying environment-specific settings.", "code": ""}, {"domain": "Implementing CI/CD", "text": "Which activity belongs more to code development workflow than runtime orchestration?", "options": ["A. Creating a pull request from a Databricks Repo branch", "B. Repairing a failed job run", "C. Using a file-arrival trigger", "D. Inspecting stage metrics in Spark UI"], "correct": 0, "explanation": "Creating pull requests is part of CI/CD and code review, not runtime orchestration.", "code": ""}, {"domain": "Troubleshooting, Monitoring, and Optimization", "text": "In Spark UI, one task in a stage takes far longer than the rest while most tasks finish quickly. What is the most likely root cause?", "options": ["A. Data skew", "B. Delta Sharing", "C. A missing Unity Catalog grant", "D. A file arrival trigger"], "correct": 0, "explanation": "A very long tail in stage tasks commonly indicates skew: one or a few partitions carry much more data than the others.", "code": ""}, {"domain": "Troubleshooting, Monitoring, and Optimization", "text": "What does significant disk spill in Spark UI usually indicate?", "options": ["A. Excess data had to be spilled because memory was insufficient for the operation", "B. The table is external instead of managed", "C. The workflow trigger is misconfigured", "D. The SQL warehouse is serverless"], "correct": 0, "explanation": "Disk spill is a common symptom of memory pressure during shuffle-heavy or aggregation-heavy operations.", "code": ""}, {"domain": "Troubleshooting, Monitoring, and Optimization", "text": "A job has been getting slower over the last week. According to the new guide, which Lakeflow Jobs feature is useful for spotting this trend?", "options": ["A. Run history comparisons against historical baselines", "B. Column masking UI", "C. Delta Sharing recipients", "D. Repo branch switching"], "correct": 0, "explanation": "The guide explicitly mentions identifying trends in job performance using the Lakeflow Jobs run history view.", "code": ""}, {"domain": "Troubleshooting, Monitoring, and Optimization", "text": "Which Spark configuration is directly relevant when you need to change the number of shuffle partitions?", "options": ["A. spark.driver.memory", "B. spark.sql.shuffle.partitions", "C. spark.sql.autoBroadcastJoinThreshold", "D. spark.default.parallelism only"], "correct": 1, "explanation": "spark.sql.shuffle.partitions directly controls the number of shuffle partitions used by Spark SQL operations.", "code": ""}, {"domain": "Troubleshooting, Monitoring, and Optimization", "text": "A cluster fails to start after a new Python package is attached. Which issue category from the new guide does this most closely match?", "options": ["A. Library conflict", "B. ABAC policy mismatch", "C. Predictive optimization lag", "D. Delta Sharing overhead"], "correct": 0, "explanation": "The guide explicitly mentions diagnosing cluster startup failures and library conflicts.", "code": ""}, {"domain": "Troubleshooting, Monitoring, and Optimization", "text": "Which statement about Liquid Clustering is correct?", "options": ["A. It always requires static directory partitioning to work", "B. It is a data layout feature the new guide expects you to understand for performance optimization", "C. It is a Lakeflow Jobs trigger type", "D. It only applies to SQL warehouses, not tables"], "correct": 1, "explanation": "The post–May 4 guide explicitly includes understanding Liquid Clustering in optimization topics.", "code": ""}, {"domain": "Troubleshooting, Monitoring, and Optimization", "text": "Which setting is most directly related to broadcasting a small table in a join?", "options": ["A. spark.default.parallelism", "B. spark.driver.memory", "C. spark.sql.autoBroadcastJoinThreshold", "D. spark.executor.instances"], "correct": 2, "explanation": "This threshold controls whether Spark considers a small relation eligible for broadcast join planning.", "code": ""}, {"domain": "Troubleshooting, Monitoring, and Optimization", "text": "A notebook crashes with an out-of-memory error after calling collect() on a very large DataFrame. What is the most direct explanation?", "options": ["A. The result set is being brought to the driver and is too large for driver memory", "B. Unity Catalog denied the read", "C. The Delta transaction log is corrupt", "D. Predictive optimization vacuumed the table"], "correct": 0, "explanation": "collect() moves all selected data to the driver. Large collections frequently cause driver-side out-of-memory failures.", "code": ""}, {"domain": "Troubleshooting, Monitoring, and Optimization", "text": "When monitoring a multi-task workflow in the Jobs UI, the DAG view is especially useful for what?", "options": ["A. Finding upstream blockers and dependency bottlenecks", "B. Editing Unity Catalog privileges", "C. Converting external tables to managed tables", "D. Broadcasting joins manually"], "correct": 0, "explanation": "The new guide explicitly mentions using the DAG-based task graph to spot upstream blockers.", "code": ""}, {"domain": "Troubleshooting, Monitoring, and Optimization", "text": "Which approach best matches the guide’s optimization mindset after changing a Spark tuning parameter?", "options": ["A. Change many settings at once and skip measurement", "B. Re-measure performance after tuning changes", "C. Tune only storage permissions", "D. Avoid any configuration changes in Databricks"], "correct": 1, "explanation": "The guide explicitly says to understand basic tuning parameters and re-measure performance.", "code": ""}, {"domain": "Governance and Security", "text": "What is the key difference between a managed and an external table in Unity Catalog?", "options": ["A. Managed tables use Delta and external tables cannot", "B. Managed tables have data lifecycle managed by Databricks at the managed storage location, while external tables reference data stored at an external location", "C. External tables cannot be queried from Databricks", "D. Managed tables cannot be dropped"], "correct": 1, "explanation": "Managed tables store data in managed locations controlled by Databricks/Unity Catalog. External tables point to data in external locations that you manage separately.", "code": ""}, {"domain": "Governance and Security", "text": "A group already has USE CATALOG and USE SCHEMA. Which statement grants read-only access to every current table in a schema?", "options": ["A. GRANT SELECT ON SCHEMA sales TO analysts", "B. GRANT SELECT ON ALL TABLES IN SCHEMA sales TO analysts", "C. GRANT MODIFY ON SCHEMA sales TO analysts", "D. GRANT ALL PRIVILEGES ON CATALOG main TO analysts"], "correct": 1, "explanation": "To grant read access to all current tables in a schema, use SELECT ON ALL TABLES IN SCHEMA.", "code": ""}, {"domain": "Governance and Security", "text": "Which principals can receive Unity Catalog permissions?", "options": ["A. Only users", "B. Users, groups, and service principals", "C. Only groups", "D. Only service principals"], "correct": 1, "explanation": "The new guide explicitly mentions applying privileges to users, groups, and service principals.", "code": ""}, {"domain": "Governance and Security", "text": "What is column masking used for?", "options": ["A. To physically delete sensitive columns from storage", "B. To restrict visible values in a sensitive column based on policy or user context", "C. To optimize file layout", "D. To schedule jobs"], "correct": 1, "explanation": "Column masking controls what values are revealed to users without changing the underlying stored data.", "code": ""}, {"domain": "Governance and Security", "text": "What is row-level security used for?", "options": ["A. To tune shuffle partitions by row count", "B. To limit which rows a user can see based on a policy", "C. To duplicate tables by region", "D. To convert external tables into managed tables"], "correct": 1, "explanation": "Row-level security filters visible records according to user or group context.", "code": ""}, {"domain": "Governance and Security", "text": "What is the main idea behind Unity Catalog ABAC policies in the new guide?", "options": ["A. They centrally manage access decisions using attributes and policies for filtering/masking sensitive data", "B. They are only for SQL warehouses", "C. They replace Delta Lake", "D. They can be applied only to bronze tables"], "correct": 0, "explanation": "ABAC centralizes row filters and column masks using policy logic based on attributes.", "code": ""}, {"domain": "Governance and Security", "text": "Which statement about audit logs is correct?", "options": ["A. They are used to physically store Delta table data", "B. They help record actions and events for governance and security monitoring", "C. They replace Spark UI", "D. They are the same thing as predictive optimization history"], "correct": 1, "explanation": "Audit logs capture relevant actions and events for governance, operational visibility, and security investigations.", "code": ""}, {"domain": "Governance and Security", "text": "A company wants to share Delta data with an external consumer that does not use Databricks. Which feature is explicitly part of the new blueprint?", "options": ["A. Delta Sharing to an external system", "B. Only shallow clone", "C. Only COPY INTO", "D. Only Databricks Repos"], "correct": 0, "explanation": "The guide explicitly includes Delta Sharing with both Databricks and external system use cases.", "code": ""}, {"domain": "Governance and Security", "text": "Why might Lakehouse Federation be attractive in some scenarios?", "options": ["A. It lets you query certain external data sources through Databricks governance patterns without fully copying all data first", "B. It disables Unity Catalog", "C. It only works for local CSV files", "D. It is a replacement for Spark UI"], "correct": 0, "explanation": "The guide explicitly includes Lakehouse Federation use cases when connected to external sources.", "code": ""}, {"domain": "Governance and Security", "text": "Which action aligns with basic lifecycle operations on managed and external tables expected by the new guide?", "options": ["A. Creating, modifying, deleting, and understanding conversion-related operations between managed and external tables", "B. Only creating dashboards", "C. Only writing notebooks in SQL", "D. Only tuning shuffle partitions"], "correct": 0, "explanation": "The guide explicitly expects candidates to perform basic operations on managed and external tables, including create, modify, delete, and convert-oriented understanding.", "code": ""}];
+
+const DOMAIN_ORDER = [
+  "Databricks Intelligence Platform",
+  "Data Ingestion and Loading",
+  "Data Transformation and Modeling",
+  "Working with Lakeflow Jobs",
+  "Implementing CI/CD",
+  "Troubleshooting, Monitoring, and Optimization",
+  "Governance and Security"
+];
+
+const BLUEPRINT = {
+  "Databricks Intelligence Platform": 4,
+  "Data Ingestion and Loading": 8,
+  "Data Transformation and Modeling": 11,
+  "Working with Lakeflow Jobs": 5,
+  "Implementing CI/CD": 4,
+  "Troubleshooting, Monitoring, and Optimization": 6,
+  "Governance and Security": 7
+};
+
+const EXAM_DEFS = [
+  {
+    "id": "dea_may2026_exam_1",
+    "title": "Practice Exam 1",
+    "focus": "Guide-aligned balanced coverage for the May 4, 2026 blueprint",
+    "seed": 11
+  },
+  {
+    "id": "dea_may2026_exam_2",
+    "title": "Practice Exam 2",
+    "focus": "Second full-length form with different ordering and answer distribution",
+    "seed": 23
+  },
+  {
+    "id": "dea_may2026_exam_3",
+    "title": "Practice Exam 3",
+    "focus": "Third full-length form for final readiness checks",
+    "seed": 37
+  }
+];
+
+let state = {
+  currentExamDef: null,
+  currentExamQuestions: [],
+  currentQuestionIndex: 0,
+  answers: {},
+  flags: {},
+  submitted: false,
+  reviewMode: false,
+  timerRemaining: 90 * 60,
+  timerInterval: null,
+  examStartedAt: null
+};
+
+function mulberry32(a) {
+  return function() {
+    let t = a += 0x6D2B79F5;
+    t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+function seededShuffle(arr, seed) {
+  const rng = mulberry32(seed);
+  const out = arr.slice();
+  for (let i = out.length - 1; i > 0; i--) {
+    const j = Math.floor(rng() * (i + 1));
+    [out[i], out[j]] = [out[j], out[i]];
+  }
+  return out;
+}
+
+function buildExam(seed) {
+  const byDomain = {};
+  for (const d of DOMAIN_ORDER) byDomain[d] = [];
+  QUESTION_BANK.forEach((q, idx) => {
+    byDomain[q.domain].push({ ...q, bankIndex: idx });
+  });
+
+  let questions = [];
+  let domainSeed = seed * 100;
+
+  for (const domain of DOMAIN_ORDER) {
+    const shuffled = seededShuffle(byDomain[domain], domainSeed++);
+    questions = questions.concat(shuffled.slice(0, BLUEPRINT[domain]));
+  }
+
+  questions = seededShuffle(questions, seed + 999).map((q, idx) => {
+    const optionObjs = q.options.map((opt, i) => {
+      return {
+        text: opt.replace(/^([A-D])\.\s*/, ''),
+        isCorrect: i === q.correct
+      };
+    });
+    const shuffledOptions = seededShuffle(optionObjs, seed * 1000 + idx + 7);
+    return {
+      ...q,
+      qid: `q_${idx + 1}_${seed}`,
+      displayNumber: idx + 1,
+      options: shuffledOptions.map(o => o.text),
+      correct: shuffledOptions.findIndex(o => o.isCorrect)
+    };
+  });
+
+  return questions;
+}
+
+function getStoredStats(examId) {
+  try {
+    return JSON.parse(localStorage.getItem(examId) || "null");
+  } catch (e) {
+    return null;
+  }
+}
+
+function setStoredStats(examId, payload) {
+  localStorage.setItem(examId, JSON.stringify(payload));
+}
+
+function renderHome() {
+  const container = document.getElementById("exam-cards");
+  container.innerHTML = "";
+  EXAM_DEFS.forEach((exam, idx) => {
+    const stats = getStoredStats(exam.id);
+    const card = document.createElement("div");
+    card.className = "exam-card";
+    card.onclick = () => startExam(exam.id);
+
+    const scoreHtml = stats
+      ? `<div class="card-score"><strong>Best score: ${stats.bestPct}%</strong> · Last: ${stats.lastPct}% · Attempts: ${stats.attempts}</div>`
+      : `<div class="card-score">No attempts yet</div>`;
+
+    card.innerHTML = `
+      <div class="card-num">EXAM 0${idx + 1}</div>
+      <div class="card-title">${exam.title}</div>
+      <div class="card-desc">${exam.focus}</div>
+
+      <div class="card-grid">
+        <div class="card-stat"><div class="card-stat-v">45</div><div class="card-stat-l">Questions</div></div>
+        <div class="card-stat"><div class="card-stat-v">90m</div><div class="card-stat-l">Timer</div></div>
+        <div class="card-stat"><div class="card-stat-v">5</div><div class="card-stat-l">Domains</div></div>
+        <div class="card-stat"><div class="card-stat-v">MCQ</div><div class="card-stat-l">Format</div></div>
+      </div>
+
+      <div class="domain-list">
+        <div class="domain-tag">Platform</div>
+        <div class="domain-tag">Ingestion</div>
+        <div class="domain-tag">Transforms</div>
+        <div class="domain-tag">Jobs</div>
+        <div class="domain-tag">Governance</div>
+      </div>
+
+      ${scoreHtml}
+    `;
+    container.appendChild(card);
+  });
+}
+
+function startExam(examId) {
+  const exam = EXAM_DEFS.find(e => e.id === examId);
+  state.currentExamDef = exam;
+  state.currentExamQuestions = buildExam(exam.seed);
+  state.currentQuestionIndex = 0;
+  state.answers = {};
+  state.flags = {};
+  state.submitted = false;
+  state.reviewMode = false;
+  state.timerRemaining = 90 * 60;
+  state.examStartedAt = Date.now();
+
+  document.getElementById("home-screen").style.display = "none";
+  document.getElementById("results-screen").style.display = "none";
+  document.getElementById("exam-screen").style.display = "block";
+  document.getElementById("review-banner").style.display = "none";
+  document.getElementById("exam-title-bar").textContent = exam.title;
+  document.getElementById("exam-subtitle").textContent = "45 questions · 90 minutes · explanations after submission";
+
+  renderQuestionGrid();
+  renderQuestion();
+  startTimer();
+}
+
+function startTimer() {
+  clearInterval(state.timerInterval);
+  updateTimer();
+  state.timerInterval = setInterval(() => {
+    if (state.submitted) {
+      clearInterval(state.timerInterval);
+      return;
+    }
+    state.timerRemaining--;
+    updateTimer();
+    if (state.timerRemaining <= 0) {
+      clearInterval(state.timerInterval);
+      submitExam(true);
+    }
+  }, 1000);
+}
+
+function updateTimer() {
+  const el = document.getElementById("timer");
+  const total = Math.max(0, state.timerRemaining);
+  const h = Math.floor(total / 3600);
+  const m = Math.floor((total % 3600) / 60);
+  const s = total % 60;
+  el.textContent = `${h}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+  el.classList.remove("warning", "danger");
+  if (total <= 10 * 60 && total > 5 * 60) el.classList.add("warning");
+  if (total <= 5 * 60) el.classList.add("danger");
+}
+
+function renderQuestionGrid() {
+  const grid = document.getElementById("q-grid");
+  grid.innerHTML = "";
+  state.currentExamQuestions.forEach((q, idx) => {
+    const dot = document.createElement("button");
+    dot.className = "q-dot";
+    if (state.answers[q.qid] !== undefined) dot.classList.add("answered");
+    if (state.flags[q.qid]) dot.classList.add("flagged");
+    if (idx === state.currentQuestionIndex) dot.classList.add("current");
+    if (state.reviewMode) {
+      const isCorrect = state.answers[q.qid] === q.correct;
+      if (state.answers[q.qid] !== undefined) dot.classList.add(isCorrect ? "correct" : "wrong");
+    }
+    dot.textContent = idx + 1;
+    dot.onclick = () => {
+      state.currentQuestionIndex = idx;
+      renderQuestionGrid();
+      renderQuestion();
+    };
+    grid.appendChild(dot);
+  });
+}
+
+function selectAnswer(index) {
+  if (state.reviewMode) return;
+  const q = state.currentExamQuestions[state.currentQuestionIndex];
+  state.answers[q.qid] = index;
+  renderQuestionGrid();
+  renderQuestion();
+}
+
+function toggleFlag() {
+  const q = state.currentExamQuestions[state.currentQuestionIndex];
+  state.flags[q.qid] = !state.flags[q.qid];
+  renderQuestionGrid();
+  renderQuestion();
+}
+
+function renderQuestion() {
+  const q = state.currentExamQuestions[state.currentQuestionIndex];
+  const container = document.getElementById("q-area");
+
+  const answer = state.answers[q.qid];
+  const answered = answer !== undefined;
+  const correct = answered && answer === q.correct;
+
+  const codeHtml = q.code ? `<div class="q-code">${escapeHtml(q.code)}</div>` : "";
+
+  const optionsHtml = q.options.map((opt, idx) => {
+    let cls = "option";
+    if (!state.reviewMode && answer === idx) cls += " selected";
+    if (state.reviewMode) {
+      if (idx === q.correct && answer === idx) cls += " correct";
+      else if (idx === q.correct && answer !== idx) cls += " reveal-correct";
+      else if (answer === idx && idx !== q.correct) cls += " wrong";
+    }
+    return `
+      <div class="${cls}" onclick="selectAnswer(${idx})">
+        <div class="option-letter">${String.fromCharCode(65 + idx)}</div>
+        <div class="option-text">${escapeHtml(opt)}</div>
+      </div>
+    `;
+  }).join("");
+
+  const explanationHtml = state.reviewMode ? `
+    <div class="explanation show">
+      <div class="exp-head">
+        <div class="exp-badge ${correct ? "correct" : "wrong"}">${correct ? "CORRECT" : "REVIEW"}</div>
+        <div class="exp-title">Answer: ${String.fromCharCode(65 + q.correct)}</div>
+      </div>
+      <div class="exp-body">${q.explanation}</div>
+    </div>
+  ` : "";
+
+  const prevDisabled = state.currentQuestionIndex === 0 ? "disabled" : "";
+  const nextLabel = state.currentQuestionIndex === state.currentExamQuestions.length - 1 ? "Last Question" : "Next";
+  const nextAction = state.currentQuestionIndex === state.currentExamQuestions.length - 1
+    ? "submitExam()"
+    : "goNext()";
+
+  container.innerHTML = `
+    <div class="q-section-tag">${escapeHtml(q.domain)}</div>
+    <div class="q-number">Question ${state.currentQuestionIndex + 1} of ${state.currentExamQuestions.length}</div>
+    <div class="q-text">${escapeHtml(q.text)}</div>
+    ${codeHtml}
+    <div class="options">${optionsHtml}</div>
+    ${explanationHtml}
+    <div class="q-actions">
+      <button class="btn btn-secondary" ${prevDisabled} onclick="goPrev()">Previous</button>
+      <button class="btn btn-primary" onclick="${nextAction}">${nextLabel}</button>
+      <button class="btn-flag ${state.flags[q.qid] ? "active" : ""}" onclick="toggleFlag()">⚑</button>
+      <button class="btn btn-secondary" onclick="jumpFirstUnanswered()">First Unanswered</button>
+    </div>
+  `;
+
+  const progressPct = ((Object.keys(state.answers).length / state.currentExamQuestions.length) * 100).toFixed(1);
+  document.getElementById("progress-fill").style.width = `${progressPct}%`;
+  document.getElementById("progress-text").textContent = `${Object.keys(state.answers).length} / ${state.currentExamQuestions.length}`;
+}
+
+function goPrev() {
+  if (state.currentQuestionIndex > 0) {
+    state.currentQuestionIndex--;
+    renderQuestionGrid();
+    renderQuestion();
+  }
+}
+
+function goNext() {
+  if (state.currentQuestionIndex < state.currentExamQuestions.length - 1) {
+    state.currentQuestionIndex++;
+    renderQuestionGrid();
+    renderQuestion();
+  }
+}
+
+function jumpFirstUnanswered() {
+  const idx = state.currentExamQuestions.findIndex(q => state.answers[q.qid] === undefined);
+  if (idx >= 0) {
+    state.currentQuestionIndex = idx;
+    renderQuestionGrid();
+    renderQuestion();
+  }
+}
+
+function submitExam(fromTimer = false) {
+  if (state.submitted) return;
+  const unanswered = state.currentExamQuestions.filter(q => state.answers[q.qid] === undefined).length;
+  if (!fromTimer && unanswered > 0) {
+    const proceed = confirm(`You still have ${unanswered} unanswered question(s). Submit anyway?`);
+    if (!proceed) return;
+  }
+
+  state.submitted = true;
+  state.reviewMode = true;
+  clearInterval(state.timerInterval);
+  document.getElementById("review-banner").style.display = "block";
+  renderQuestionGrid();
+  renderQuestion();
+  renderResults();
+}
+
+function renderResults() {
+  const total = state.currentExamQuestions.length;
+  const answered = Object.keys(state.answers).length;
+  const correctCount = state.currentExamQuestions.filter(q => state.answers[q.qid] === q.correct).length;
+  const pct = Math.round((correctCount / total) * 100);
+  const pass = pct >= 70; // unofficial target for practice use
+
+  const domainStats = DOMAIN_ORDER.map(domain => {
+    const qs = state.currentExamQuestions.filter(q => q.domain === domain);
+    const correct = qs.filter(q => state.answers[q.qid] === q.correct).length;
+    return {
+      domain,
+      total: qs.length,
+      correct,
+      pct: Math.round((correct / qs.length) * 100)
+    };
+  });
+
+  const usedSeconds = (90 * 60) - state.timerRemaining;
+  const mins = Math.floor(usedSeconds / 60);
+  const secs = usedSeconds % 60;
+
+  const oldStats = getStoredStats(state.currentExamDef.id) || { attempts: 0, bestPct: 0, lastPct: 0 };
+  const newStats = {
+    attempts: oldStats.attempts + 1,
+    bestPct: Math.max(oldStats.bestPct, pct),
+    lastPct: pct
+  };
+  setStoredStats(state.currentExamDef.id, newStats);
+
+  const breakdownHtml = domainStats.map(s => `
+    <div class="section-row">
+      <div class="section-name">${escapeHtml(shortDomain(s.domain))}</div>
+      <div class="section-bar-wrap"><div class="section-bar-fill" style="width:${s.pct}%"></div></div>
+      <div class="section-pct">${s.correct}/${s.total}</div>
+    </div>
+  `).join("");
+
+  document.getElementById("results-inner").innerHTML = `
+    <div class="results-header">
+      <div class="score-circle ${pass ? "" : "fail"}">
+        <div class="score-pct">${pct}%</div>
+        <div class="score-label">Practice Score</div>
+      </div>
+      <div class="result-verdict">${pass ? "Strong practice result" : "Needs another pass"} </div>
+      <div class="result-sub">${escapeHtml(state.currentExamDef.title)} · Detailed explanations are now available in review mode inside the exam page.</div>
+    </div>
+
+    <div class="note-box">
+      This is an unofficial simulator. It mirrors the post–May 4, 2026 Databricks Data Engineer Associate format with 45 questions and a 90-minute timer, and its question mix is aligned to the new guide domains. The questions here are original practice content.
+    </div>
+
+    <div class="results-stats">
+      <div class="stat-card"><div class="stat-num">${correctCount}</div><div class="stat-label">Correct</div></div>
+      <div class="stat-card"><div class="stat-num">${answered}</div><div class="stat-label">Answered</div></div>
+      <div class="stat-card"><div class="stat-num">${total - answered}</div><div class="stat-label">Blank</div></div>
+      <div class="stat-card"><div class="stat-num">${mins}m ${secs}s</div><div class="stat-label">Time Used</div></div>
+    </div>
+
+    <div class="section-breakdown">
+      <h3>Domain breakdown</h3>
+      ${breakdownHtml}
+    </div>
+
+    <div class="section-breakdown">
+      <h3>Guide-aligned domain coverage used in this page</h3>
+      <div class="blueprint-list">
+        <div class="bp-item"><div class="bp-v">4</div><div class="bp-l">Databricks Intelligence Platform</div></div>
+        <div class="bp-item"><div class="bp-v">8</div><div class="bp-l">Data Ingestion and Loading</div></div>
+        <div class="bp-item"><div class="bp-v">11</div><div class="bp-l">Data Transformation and Modeling</div></div>
+        <div class="bp-item"><div class="bp-v">5</div><div class="bp-l">Working with Lakeflow Jobs</div></div>
+        <div class="bp-item"><div class="bp-v">4</div><div class="bp-l">Implementing CI/CD</div></div>
+        <div class="bp-item"><div class="bp-v">6</div><div class="bp-l">Troubleshooting, Monitoring, and Optimization</div></div>
+        <div class="bp-item"><div class="bp-v">7</div><div class="bp-l">Governance and Security</div></div>
+      </div>
+    </div>
+        <div class="bp-item"><div class="bp-v">30%</div><div class="bp-l">Development & Ingestion</div></div>
+        <div class="bp-item"><div class="bp-v">31%</div><div class="bp-l">Processing & Transformations</div></div>
+        <div class="bp-item"><div class="bp-v">18%</div><div class="bp-l">Productionizing</div></div>
+        <div class="bp-item"><div class="bp-v">11%</div><div class="bp-l">Governance & Quality</div></div>
+      </div>
+    </div>
+
+    <div class="results-actions">
+      <button class="btn btn-primary" onclick="backToReview()">Back to review</button>
+      <button class="btn btn-secondary" onclick="goHome()">Home</button>
+      <button class="btn btn-secondary" onclick="retakeCurrentExam()">Retake this exam</button>
+    </div>
+  `;
+
+  document.getElementById("exam-screen").style.display = "none";
+  document.getElementById("results-screen").style.display = "block";
+  renderHome();
+}
+
+function backToReview() {
+  document.getElementById("results-screen").style.display = "none";
+  document.getElementById("exam-screen").style.display = "block";
+  renderQuestionGrid();
+  renderQuestion();
+}
+
+function retakeCurrentExam() {
+  startExam(state.currentExamDef.id);
+}
+
+function goHome() {
+  clearInterval(state.timerInterval);
+  document.getElementById("exam-screen").style.display = "none";
+  document.getElementById("results-screen").style.display = "none";
+  document.getElementById("home-screen").style.display = "flex";
+  renderHome();
+}
+
+function confirmExit() {
+  if (!state.submitted && Object.keys(state.answers).length > 0) {
+    if (!confirm("Leave this exam? Your current attempt will be lost.")) return;
+  }
+  clearInterval(state.timerInterval);
+  goHome();
+}
+
+function shortDomain(domain) {
+  return domain;
+}
+
+function escapeHtml(str) {
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+renderHome();
+</script>
+</body>
+</html>
